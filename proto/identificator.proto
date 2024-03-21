@@ -1,0 +1,64 @@
+// python3 -m grpc_tools.protoc --proto_path=../proto identificator.proto --python_out=. --grpc_python_out=.
+
+syntax = "proto3";
+
+package sk.stuba.fei.api.msus.dp.identificator;
+
+option java_multiple_files = true;
+
+service Identificator {
+  rpc Identify(IdentificationRequest) returns (IdentificationResponse) {}
+  rpc Verify(VerificationRequest) returns (VerificationResponse) {}
+}
+
+message IdentificationRequest {
+  string modalityType = 1;
+  string data = 2;
+  IdentificationParameters identificationParameters = 3;
+}
+
+message VerificationRequest {
+  string modalityType = 1;
+  string data = 2;
+  string criminalId = 3;
+  VerificationParameters verificationParameters = 4;
+}
+
+message IdentificationResponse {
+  repeated Candidate hitlist = 1;
+}
+
+message VerificationResponse {
+  bool verified = 1;
+}
+
+message IdentificationParameters {
+  float matchScoreThreshold = 1;
+  int64 candidateCount = 2;
+}
+
+message VerificationParameters {
+  float matchScoreThreshold = 1;
+}
+
+message Candidate {
+  Criminal criminal = 1;
+  float matchScore = 2;
+}
+
+message Criminal {
+  string id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string phoneNumber = 4;
+  string email = 5;
+  Address address = 6;
+}
+
+message Address {
+  string country = 1;
+  string city = 2;
+  string street = 3;
+  string streetNumber = 4;
+  string postCode = 5;
+}

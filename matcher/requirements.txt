@@ -1,0 +1,10 @@
+grpcio==1.48.2
+grpcio-tools==1.48.2
+numpy==1.19.5
+opencv-python==4.7.0.72
+protobuf==3.19.6
+six==1.16.0
+Pillow~=8.4.0
+scipy~=1.5.4
+matplotlib~=3.3.4
+scikit-image~=0.17.2

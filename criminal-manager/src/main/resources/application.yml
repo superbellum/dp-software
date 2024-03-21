@@ -1,0 +1,12 @@
+server:
+  port: ${DP_CRIMINAL_MANAGER_PORT:8092}
+
+app:
+  feature-extractor-grpc-client:
+    host: ${DP_FEATURE_EXTRACTOR_HOST:localhost}
+    port: ${DP_FEATURE_EXTRACTOR_PORT:50051}
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${DP_MONGO_HOST:localhost}:${DP_MONGO_PORT:27017}/dp_criminal

@@ -1,0 +1,88 @@
+version: '2.1'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - '27117:${DP_MONGO_PORT}'
+    #    volumes:
+    #      - mongodb_vol:/data/dp_criminal
+    env_file:
+      - ./.env
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    ports:
+      - '3406:3306'
+    #    volumes:
+    #      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql # todo: prepopulate with data
+    #      - ./docker/mysql/:/var/lib/mysql/
+    env_file:
+      - ./.env
+    healthcheck:
+      test: mysql $MYSQL_DATABASE --user=$MYSQL_USER --password=$MYSQL_PASSWORD --silent --execute "SELECT 1;"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  feature-extractor:
+    build: ./feature-extractor
+    container_name: feature-extractor
+    restart: always
+    ports:
+      - '${DP_FEATURE_EXTRACTOR_PORT}:${DP_FEATURE_EXTRACTOR_PORT}'
+    env_file:
+      - ./.env
+
+  matcher:
+    build: ./matcher
+    container_name: matcher
+    restart: always
+    ports:
+      - '${DP_MATCHER_PORT}:${DP_MATCHER_PORT}'
+    env_file:
+      - ./.env
+
+  identificator:
+    build: ./identificator
+    container_name: identificator
+    restart: always
+    ports:
+      - '${DP_IDENTIFICATOR_PORT}:${DP_IDENTIFICATOR_PORT}'
+    env_file:
+      - ./.env
+
+  criminal-manager:
+    build: ./criminal-manager
+    container_name: criminal-manager
+    restart: on-failure
+    depends_on:
+      mongodb:
+        condition: service_started
+      feature-extractor:
+        condition: service_started
+    ports:
+      - '${DP_CRIMINAL_MANAGER_PORT}:${DP_CRIMINAL_MANAGER_PORT}'
+    env_file:
+      - ./.env
+
+  main-service:
+    build: ./main-service
+    container_name: main-service
+    restart: on-failure
+    depends_on:
+      criminal-manager:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+    ports:
+      - '8090:8090'
+    env_file:
+      - ./.env
+
+#volumes:
+#  mongodb_vol:

@@ -1,0 +1,19 @@
+server:
+  port: 8090
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+app:
+  identificator-grpc-client:
+    host: ${DP_IDENTIFICATOR_HOST:localhost}
+    port: ${DP_IDENTIFICATOR_PORT:50052}
+    default-identification-params:
+      match-score-threshold: 90
+      candidate-count: 10
+    default-verification-params:
+      match-score-threshold: 90
+  criminal-manager:
+    url: http://${DP_CRIMINAL_MANAGER_HOST:localhost}:${DP_CRIMINAL_MANAGER_PORT:8092}/api/criminals
