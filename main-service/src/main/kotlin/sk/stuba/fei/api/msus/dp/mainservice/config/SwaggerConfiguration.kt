@@ -26,7 +26,7 @@ class SwaggerConfiguration {
     private fun getApiInfo() =
         ApiInfoBuilder()
             .title("MAIN-SERVICE-API")
-            .version("1.0")
+            .version("1.3")
             .description("REST API documentation for main-service of DP project")
             .build()
 }
