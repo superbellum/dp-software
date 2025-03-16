@@ -3,15 +3,21 @@
     <img src="criminal-placeholder.jpg" width="150px" alt="Image">
   </div>
 
-  <div class="col fill-space bg-primary">
-    <h2>Column 2</h2>
+  <div class="col fill-space align-content-center border-start">
+    <p class="m-1"><strong>Name:</strong> {{criminal().firstName}} {{criminal().lastName}}</p>
+    <p class="m-1"><strong>Email:</strong> {{criminal().email}}</p>
+    <p class="m-1"><strong>Phone:</strong> {{criminal().phoneNumber}}</p>
   </div>
 
-  <div class="col fill-space bg-success">
-    <h2>Column 3</h2>
+  <div class="col fill-space align-content-center border-start">
+    <p class="m-1"><strong>Country:</strong> {{criminal().address.country}}</p>
+    <p class="m-1"><strong>City:</strong> {{criminal().address.city}}</p>
+    <p class="m-1"><strong>Postal Code:</strong> {{criminal().address.postCode}}</p>
+    <p class="m-1"><strong>Street:</strong> {{criminal().address.street}} {{criminal().address.streetNumber}}</p>
   </div>
 
-  <div class="col fill-space bg-danger">
-    <h2>Column 3</h2>
+  <div class="col fill-space align-content-center border-start">
+    <button type="button" class="btn btn-primary mb-3">Show Modalities</button>
+    <button type="button" class="btn btn-danger">Delete Criminal</button>
   </div>
 </div>
