@@ -1,6 +1,6 @@
 import {Component, inject, signal} from '@angular/core';
 import {StorageService} from '../../services/storage.service';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +14,7 @@ export class NavbarComponent {
   activeNavTab = signal("");
 
   private storageService = inject(StorageService);
+  private router = inject(Router);
 
   constructor() {
     const storedActiveNavTab: string = this.storageService.retrieveActiveNavTab();
@@ -22,6 +23,7 @@ export class NavbarComponent {
       this.activeNavTab.set(storedActiveNavTab);
     } else {
       this.setActiveNavTab("criminals");
+      this.router.navigateByUrl("/");
     }
   }
 

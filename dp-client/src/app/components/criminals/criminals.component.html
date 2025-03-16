@@ -1,1 +1,6 @@
-<p>criminals works!</p>
+<div class="container-fluid">
+  @for (criminal of criminals(); track criminal.id) {
+
+    <app-criminal-card [criminal]="criminal"/>
+  }
+</div>
