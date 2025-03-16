@@ -8,6 +8,7 @@ import sk.stuba.fei.api.msus.dp.criminalmanager.model.ModalityType.FINGERPRINT
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.dto.CriminalResponseDto
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.request.AddModalitiesRequest
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.request.CreateCriminalRequest
+import sk.stuba.fei.api.msus.dp.criminalmanager.payload.response.GetAllCriminalsResponse
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.response.GetCriminalResponse
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.response.MessageResponse
 import sk.stuba.fei.api.msus.dp.criminalmanager.repository.CriminalRepository
@@ -39,6 +40,13 @@ class CriminalService(
             )
         )
     }
+
+    fun getAllCriminals(): ResponseEntity<GetAllCriminalsResponse> =
+        ResponseEntity.ok(
+            GetAllCriminalsResponse(
+                criminals = criminalRepository.findAll().map { it.toResponseDto() }
+            )
+        )
 
     fun createCriminal(createCriminalRequest: CreateCriminalRequest): ResponseEntity<CriminalResponseDto> {
         val savedCriminal = criminalRepository.save(createCriminalRequest.criminal.toEntity())

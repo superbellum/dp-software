@@ -24,6 +24,9 @@ class CriminalController(private val criminalService: CriminalService) {
         @RequestParam(required = false, defaultValue = "false") withModalities: Boolean
     ) = criminalService.getCriminalById(id, withModalities)
 
+    @GetMapping
+    fun getAllCriminals() = criminalService.getAllCriminals()
+
     @PostMapping
     fun createCriminal(@RequestBody createCriminalRequest: CreateCriminalRequest) =
         criminalService.createCriminal(createCriminalRequest)

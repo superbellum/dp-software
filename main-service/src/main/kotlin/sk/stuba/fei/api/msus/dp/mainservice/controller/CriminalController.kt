@@ -26,6 +26,10 @@ class CriminalController(private val criminalManagerClient: CriminalManagerClien
         @RequestParam(required = false, defaultValue = "false") withModalities: Boolean
     ) = criminalManagerClient.getCriminalById(id, withModalities)
 
+    @GetMapping
+    @Operation(summary = "Get all criminals without their modalities")
+    fun getAllCriminals() = criminalManagerClient.getAllCriminals()
+
     @PostMapping
     @Operation(summary = "Enroll new criminal with or without biometric data")
     fun enroll(@RequestBody criminalEnrollRequest: CriminalEnrollRequest) =
