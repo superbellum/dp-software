@@ -1,5 +1,6 @@
-import {Component, input} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {Criminal} from '../../../model/criminal.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-criminal-card',
@@ -10,5 +11,9 @@ import {Criminal} from '../../../model/criminal.model';
 export class CriminalCardComponent {
   criminal = input.required<Criminal>();
 
+  private router = inject(Router);
 
+  showModalitiesForCriminal(criminalId: string) {
+    this.router.navigateByUrl(`criminals/${criminalId}/modalities`);
+  }
 }

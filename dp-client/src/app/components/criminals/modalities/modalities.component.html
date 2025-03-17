@@ -1,0 +1,7 @@
+<h5 class="m-2">Criminal ID: {{ criminalId() }}</h5>
+<button type="button" class="btn btn-primary m-2">Back</button>
+<div class="container-fluid">
+  @for (modality of modalities(); track modality.id) {
+    <app-modality-card [modality]="modality"/>
+  }
+</div>

@@ -1,6 +1,6 @@
+<button type="button" class="btn btn-primary m-4" (click)="createCriminal()">Create New Criminal</button>
 <div class="container-fluid">
   @for (criminal of criminals(); track criminal.id) {
-
     <app-criminal-card [criminal]="criminal"/>
   }
 </div>

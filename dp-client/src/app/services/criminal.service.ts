@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {GetAllCriminalsResponse} from '../model/payload/get-all-criminals-response.model';
 import {Observable} from 'rxjs';
+import {GetModalitiesForCriminalResponse} from '../model/payload/get-modalities-for-criminal-response.model';
 
 const httpOptions = {
   headers: new HttpHeaders({'content-type': 'application/json'})
@@ -15,5 +16,9 @@ export class CriminalService {
 
   getAllCriminals(): Observable<GetAllCriminalsResponse> {
     return this.httpClient.get<GetAllCriminalsResponse>(CriminalService.API_URL, httpOptions);
+  }
+
+  getModalitiesForCriminal(criminalId: string): Observable<GetModalitiesForCriminalResponse> {
+    return this.httpClient.get<GetModalitiesForCriminalResponse>(`${CriminalService.API_URL}/${criminalId}/modalities`, httpOptions);
   }
 }
