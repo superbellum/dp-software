@@ -7,6 +7,7 @@ import sk.stuba.fei.api.msus.dp.mainservice.model.dto.CriminalResponseDto
 import sk.stuba.fei.api.msus.dp.mainservice.payload.request.AddModalitiesRequest
 import sk.stuba.fei.api.msus.dp.mainservice.payload.request.CriminalEnrollRequest
 import sk.stuba.fei.api.msus.dp.mainservice.payload.response.GetAllCriminalsResponse
+import sk.stuba.fei.api.msus.dp.mainservice.payload.response.GetCriminalModalitiesResponse
 import sk.stuba.fei.api.msus.dp.mainservice.payload.response.GetCriminalResponse
 import sk.stuba.fei.api.msus.dp.mainservice.payload.response.MessageResponse
 
@@ -30,6 +31,9 @@ interface CriminalManagerClient {
 
     @DeleteMapping
     fun deleteAll(): ResponseEntity<MessageResponse>
+
+    @GetMapping("{id}/modalities")
+    fun getModalitiesForCriminal(@PathVariable id: String): ResponseEntity<GetCriminalModalitiesResponse>
 
     @PostMapping("{id}/modalities")
     fun addModalitiesForCriminal(

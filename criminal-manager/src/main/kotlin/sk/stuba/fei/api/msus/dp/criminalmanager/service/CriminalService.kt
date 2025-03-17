@@ -9,6 +9,7 @@ import sk.stuba.fei.api.msus.dp.criminalmanager.model.dto.CriminalResponseDto
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.request.AddModalitiesRequest
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.request.CreateCriminalRequest
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.response.GetAllCriminalsResponse
+import sk.stuba.fei.api.msus.dp.criminalmanager.payload.response.GetCriminalModalitiesResponse
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.response.GetCriminalResponse
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.response.MessageResponse
 import sk.stuba.fei.api.msus.dp.criminalmanager.repository.CriminalRepository
@@ -84,10 +85,15 @@ class CriminalService(
         ResponseEntity.badRequest().body(MessageResponse("Criminal with ID '$id' does not exist"))
     }
 
-    fun addModalitiesForCriminal(
-        criminalId: String,
-        modalitiesRequest: AddModalitiesRequest
-    ): ResponseEntity<MessageResponse> =
+    fun getModalitiesForCriminal(criminalId: String): ResponseEntity<GetCriminalModalitiesResponse> =
+        ResponseEntity.ok(
+            GetCriminalModalitiesResponse(
+                criminalId = criminalId,
+                modalities = modalityRepository.findAllByCriminalId(criminalId).map { it.toResponseDto() }
+            )
+        )
+
+    fun addModalitiesForCriminal(criminalId: String, modalitiesRequest: AddModalitiesRequest): ResponseEntity<MessageResponse> =
         if (criminalRepository.existsById(criminalId)) {
             modalitiesRequest.modalities
                 .map {

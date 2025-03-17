@@ -43,6 +43,11 @@ class CriminalController(private val criminalManagerClient: CriminalManagerClien
     @Operation(summary = "Delete all criminals and modalities")
     fun deleteAll() = criminalManagerClient.deleteAll()
 
+    @GetMapping("{id}/modalities")
+    @Operation(summary = "Get all modalities for criminal specified by ID")
+    fun getModalitiesForCriminal(@PathVariable id: String) =
+        criminalManagerClient.getModalitiesForCriminal(id)
+
     @PostMapping("{id}/modalities")
     @Operation(summary = "Add modalities for criminal specified by ID")
     fun addModalitiesForCriminal(@PathVariable id: String, @RequestBody modalitiesRequest: AddModalitiesRequest) =

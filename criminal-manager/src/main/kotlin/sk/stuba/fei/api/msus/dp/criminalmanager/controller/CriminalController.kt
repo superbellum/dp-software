@@ -37,6 +37,10 @@ class CriminalController(private val criminalService: CriminalService) {
     @DeleteMapping
     fun deleteAll() = criminalService.deleteAll()
 
+    @GetMapping("{id}/modalities")
+    fun getModalitiesForCriminal(@PathVariable id: String) =
+        criminalService.getModalitiesForCriminal(id)
+
     @PostMapping("{id}/modalities")
     fun addModalitiesForCriminal(@PathVariable id: String, @RequestBody modalitiesRequest: AddModalitiesRequest) =
         criminalService.addModalitiesForCriminal(id, modalitiesRequest)
