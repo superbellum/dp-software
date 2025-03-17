@@ -123,6 +123,18 @@ class CriminalService(
             ResponseEntity.badRequest().body(MessageResponse("Criminal with ID '$criminalId' does not exist"))
         }
 
+    fun removeModalityOfCriminal(criminalId: String, modalityId: String): ResponseEntity<MessageResponse> =
+        if (criminalRepository.existsById(criminalId)) {
+            if (modalityRepository.existsById(modalityId)) {
+                modalityRepository.deleteById(modalityId)
+                ResponseEntity.ok(MessageResponse("Modality '$modalityId' removed for criminal '$criminalId'"))
+            } else {
+                ResponseEntity.badRequest().body(MessageResponse("Modality with ID '$modalityId' does not exist"))
+            }
+        } else {
+            ResponseEntity.badRequest().body(MessageResponse("Criminal with ID '$criminalId' does not exist"))
+        }
+
     private fun createFingerprintModalityEntity(criminalId: String, data: String): FingerprintModalityEntity {
         val extractionResponse = featureExtractorClient.extractFingerprint(
             FeatureExtractionRequest.newBuilder()

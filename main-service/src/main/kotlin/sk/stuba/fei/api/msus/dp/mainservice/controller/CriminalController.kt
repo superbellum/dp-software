@@ -57,4 +57,8 @@ class CriminalController(private val criminalManagerClient: CriminalManagerClien
     @Operation(summary = "Remove all modalities for criminal specified by ID")
     fun removeModalitiesOfCriminal(@PathVariable id: String) =
         criminalManagerClient.removeModalitiesOfCriminal(id)
+
+    @DeleteMapping("{criminalId}/modalities/{modalityId}")
+    fun removeModalityOfCriminal(@PathVariable criminalId: String, @PathVariable modalityId: String) =
+        criminalManagerClient.removeModalityOfCriminal(criminalId, modalityId)
 }

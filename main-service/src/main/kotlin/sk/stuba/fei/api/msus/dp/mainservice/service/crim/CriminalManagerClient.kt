@@ -43,4 +43,7 @@ interface CriminalManagerClient {
 
     @DeleteMapping("{id}/modalities")
     fun removeModalitiesOfCriminal(@PathVariable id: String): ResponseEntity<MessageResponse>
+
+    @DeleteMapping("{criminalId}/modalities/{modalityId}")
+    fun removeModalityOfCriminal(@PathVariable criminalId: String, @PathVariable modalityId: String): ResponseEntity<MessageResponse>
 }
