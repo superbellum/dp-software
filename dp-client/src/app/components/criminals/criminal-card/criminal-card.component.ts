@@ -16,15 +16,15 @@ export class CriminalCardComponent {
   private criminalService = inject(CriminalService);
   private router = inject(Router);
 
-  showModalitiesForCriminal(criminalId: string) {
-    this.router.navigateByUrl(`criminals/${criminalId}/modalities`);
+  showModalitiesForCriminal() {
+    this.router.navigateByUrl(`criminals/${this.criminal().id}/modalities`);
   }
 
-  deleteCriminalById(id: string) {
-    this.criminalService.deleteCriminalById(id).subscribe({
+  deleteCriminalById() {
+    this.criminalService.deleteCriminalById(this.criminal().id).subscribe({
       next: (res) => {
         console.log(res.message);
-        this.onDeleteCriminal.emit(id);
+        this.onDeleteCriminal.emit(this.criminal().id);
       },
       error: (err) => console.error(err)
     });

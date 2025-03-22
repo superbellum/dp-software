@@ -1,6 +1,7 @@
-import {Component, inject, input} from '@angular/core';
+import {Component, inject, input, output} from '@angular/core';
 import {Modality} from '../../../../model/modality.model';
 import {DomSanitizer} from '@angular/platform-browser';
+import {CriminalService} from '../../../../services/criminal.service';
 
 @Component({
   selector: 'app-modality-card',
@@ -10,6 +11,9 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class ModalityCardComponent {
   modality = input.required<Modality>();
+  onDeleteModality = output<string>();
+
+  private criminalService = inject(CriminalService);
 
   private sanitizer = inject(DomSanitizer);
 
@@ -17,7 +21,13 @@ export class ModalityCardComponent {
     return this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${this.modality().data}`);
   }
 
-  deleteModalityById(modalityId: string) {
-    // todo
+  deleteModalityById() {
+    this.criminalService.deleteModalityForCriminal(this.modality().criminalId, this.modality().id).subscribe({
+      next: res => {
+        console.log(res.message);
+        this.onDeleteModality.emit(this.modality().id);
+      },
+      error: err => console.log(err)
+    });
   }
 }

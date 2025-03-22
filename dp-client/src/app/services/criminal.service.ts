@@ -32,6 +32,10 @@ export class CriminalService {
     return this.httpClient.delete<MessageResponse>(`${CriminalService.API_URL}/${criminalId}/modalities`);
   }
 
+  deleteModalityForCriminal(criminalId: string, modalityId: string) {
+    return this.httpClient.delete<MessageResponse>(`${CriminalService.API_URL}/${criminalId}/modalities/${modalityId}`);
+  }
+
   deleteCriminalById(criminalId: string) {
     return this.httpClient.delete<MessageResponse>(`${CriminalService.API_URL}/${criminalId}`);
   }

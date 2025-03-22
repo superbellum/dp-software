@@ -50,4 +50,8 @@ export class ModalitiesComponent implements OnInit {
   addNewModalityToCriminal() {
     this.router.navigateByUrl(`criminals/${this.criminalId()}/modalities/new-modality`);
   }
+
+  onDeletedModality(modalityId: string) {
+    this.modalities.set(this.modalities()?.filter(m => m.id !== modalityId));
+  }
 }

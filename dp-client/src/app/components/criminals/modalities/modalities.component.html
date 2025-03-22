@@ -9,7 +9,7 @@
 
   <div class="container-fluid">
     @for (modality of modalities(); track modality.id) {
-      <app-modality-card [modality]="modality"/>
+      <app-modality-card [modality]="modality" (onDeleteModality)="onDeletedModality($event)"/>
     }
   </div>
 }

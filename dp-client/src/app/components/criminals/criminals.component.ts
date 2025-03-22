@@ -25,7 +25,6 @@ export class CriminalsComponent implements OnInit {
   }
 
   createCriminal() {
-    // todo
     this.router.navigateByUrl("new-criminal");
   }
 
