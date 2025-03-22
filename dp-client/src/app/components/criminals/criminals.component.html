@@ -1,6 +1,11 @@
-<button type="button" class="btn btn-primary m-4" (click)="createCriminal()">Create New Criminal</button>
-<div class="container-fluid">
-  @for (criminal of criminals(); track criminal.id) {
-    <app-criminal-card [criminal]="criminal"/>
-  }
-</div>
+@if (!criminals() || criminals()?.length === 0) {
+  <p class="m-3">No criminals in the database</p>
+} @else {
+  <span class="ms-2 mt-2 me-1">Number of criminals: {{criminals()?.length ?? 0}}</span>
+  <button type="button" class="btn btn-primary m-2" (click)="createCriminal()">Create New Criminal</button>
+  <div class="container-fluid">
+    @for (criminal of criminals(); track criminal.id) {
+      <app-criminal-card [criminal]="criminal" (onDeleteCriminal)="onDeletedCriminal($event)"/>
+    }
+  </div>
+}

@@ -24,12 +24,30 @@ export class ModalitiesComponent implements OnInit {
     const criminalId = this.route.snapshot.paramMap.get('id');
 
     if (criminalId) {
+      this.criminalId.set(criminalId);
       this.criminalService
         .getModalitiesForCriminal(criminalId)
         .subscribe(data => {
           this.modalities.set(data.modalities);
-          this.criminalId.set(data.criminalId);
         });
     }
+  }
+
+  goBack() {
+    this.router.navigate(['..']);
+  }
+
+  deleteAllModalitiesForCriminal() {
+    this.criminalService.deleteAllModalitiesForCriminal(this.criminalId()).subscribe({
+      next: (res) => {
+        console.log(res.message);
+        this.modalities.set([]);
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  addNewModalityToCriminal() {
+    this.router.navigateByUrl(`criminals/${this.criminalId()}/modalities/new-modality`);
   }
 }

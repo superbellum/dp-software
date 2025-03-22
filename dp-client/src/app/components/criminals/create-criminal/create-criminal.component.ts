@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {Router} from '@angular/router';
+import {CriminalService} from '../../../services/criminal.service';
 
 @Component({
   selector: 'app-create-criminal',
@@ -7,5 +9,12 @@ import { Component } from '@angular/core';
   styleUrl: './create-criminal.component.css'
 })
 export class CreateCriminalComponent {
+  private criminalService = inject(CriminalService);
+  private router = inject(Router);
+
+
+  goBack() {
+    this.router.navigate(['..']);
+  }
 
 }

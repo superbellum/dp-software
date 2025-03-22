@@ -25,6 +25,11 @@ export class CriminalsComponent implements OnInit {
   }
 
   createCriminal() {
+    // todo
     this.router.navigateByUrl("new-criminal");
+  }
+
+  onDeletedCriminal(criminalId: string) {
+    this.criminals.set(this.criminals()?.filter(c => c.id !== criminalId));
   }
 }

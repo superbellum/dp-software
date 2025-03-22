@@ -1,6 +1,6 @@
-<div class="row m-2 border rounded-4" style="overflow: hidden">
-  <div class="col-auto image-container bg-danger p-0">
-    <img src="criminal-placeholder.jpg" width="150px" alt="Image">
+<div class="row m-2 border rounded-2" style="overflow: hidden">
+  <div class="col-auto image-container p-0">
+    <img [src]="modalityImage" alt="modality image">
   </div>
 
   <div class="col fill-space align-content-center border-start">
@@ -9,6 +9,6 @@
   </div>
 
   <div class="col fill-space align-content-center border-start">
-    <button type="button" class="btn btn-danger m-1">Delete</button>
+    <button type="button" class="btn btn-danger m-1" (click)="deleteModalityById(modality().id)">Delete</button>
   </div>
 </div>

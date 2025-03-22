@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {GetAllCriminalsResponse} from '../model/payload/get-all-criminals-response.model';
 import {Observable} from 'rxjs';
 import {GetModalitiesForCriminalResponse} from '../model/payload/get-modalities-for-criminal-response.model';
+import {MessageResponse} from '../model/payload/message-response.model';
 
 const httpOptions = {
   headers: new HttpHeaders({'content-type': 'application/json'})
@@ -23,6 +24,10 @@ export class CriminalService {
   }
 
   deleteAllModalitiesForCriminal(criminalId: string) {
-    return this.httpClient.delete(`${CriminalService.API_URL}/${criminalId}/modalities`);
+    return this.httpClient.delete<MessageResponse>(`${CriminalService.API_URL}/${criminalId}/modalities`);
+  }
+
+  deleteCriminalById(criminalId: string) {
+    return this.httpClient.delete<MessageResponse>(`${CriminalService.API_URL}/${criminalId}`);
   }
 }
