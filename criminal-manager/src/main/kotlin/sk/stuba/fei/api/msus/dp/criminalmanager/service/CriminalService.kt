@@ -76,7 +76,7 @@ class CriminalService(
         return ResponseEntity.ok(MessageResponse("Deleted all criminals and modalities"))
     }
 
-    fun deleteCriminal(id: String) = if (criminalRepository.existsById(id)) {
+    fun deleteCriminalById(id: String) = if (criminalRepository.existsById(id)) {
         criminalRepository.deleteById(id)
         modalityRepository.deleteAllByCriminalId(id)
 

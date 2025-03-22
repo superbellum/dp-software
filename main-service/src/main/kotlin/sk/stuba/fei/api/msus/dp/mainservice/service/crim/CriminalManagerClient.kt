@@ -26,24 +26,27 @@ interface CriminalManagerClient {
     @PostMapping
     fun enroll(@RequestBody criminalEnrollRequest: CriminalEnrollRequest): ResponseEntity<CriminalResponseDto>
 
-    @DeleteMapping("{id}")
-    fun deleteCriminal(@PathVariable id: String): ResponseEntity<MessageResponse>
+    @DeleteMapping("{criminalId}")
+    fun deleteCriminalById(@PathVariable criminalId: String): ResponseEntity<MessageResponse>
 
     @DeleteMapping
     fun deleteAll(): ResponseEntity<MessageResponse>
 
-    @GetMapping("{id}/modalities")
-    fun getModalitiesForCriminal(@PathVariable id: String): ResponseEntity<GetCriminalModalitiesResponse>
+    @GetMapping("{criminalId}/modalities")
+    fun getModalitiesForCriminal(@PathVariable criminalId: String): ResponseEntity<GetCriminalModalitiesResponse>
 
-    @PostMapping("{id}/modalities")
+    @PostMapping("{criminalId}/modalities")
     fun addModalitiesForCriminal(
-        @PathVariable id: String,
+        @PathVariable criminalId: String,
         @RequestBody modalitiesRequest: AddModalitiesRequest
     ): ResponseEntity<MessageResponse>
 
-    @DeleteMapping("{id}/modalities")
-    fun removeModalitiesOfCriminal(@PathVariable id: String): ResponseEntity<MessageResponse>
+    @DeleteMapping("{criminalId}/modalities")
+    fun removeModalitiesOfCriminal(@PathVariable criminalId: String): ResponseEntity<MessageResponse>
 
     @DeleteMapping("{criminalId}/modalities/{modalityId}")
-    fun removeModalityOfCriminal(@PathVariable criminalId: String, @PathVariable modalityId: String): ResponseEntity<MessageResponse>
+    fun removeModalityOfCriminal(
+        @PathVariable criminalId: String,
+        @PathVariable modalityId: String
+    ): ResponseEntity<MessageResponse>
 }

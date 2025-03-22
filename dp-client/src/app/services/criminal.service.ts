@@ -21,4 +21,8 @@ export class CriminalService {
   getModalitiesForCriminal(criminalId: string): Observable<GetModalitiesForCriminalResponse> {
     return this.httpClient.get<GetModalitiesForCriminalResponse>(`${CriminalService.API_URL}/${criminalId}/modalities`, httpOptions);
   }
+
+  deleteAllModalitiesForCriminal(criminalId: string) {
+    return this.httpClient.delete(`${CriminalService.API_URL}/${criminalId}/modalities`);
+  }
 }

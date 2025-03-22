@@ -1,14 +1,6 @@
 package sk.stuba.fei.api.msus.dp.criminalmanager.controller
 
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.request.AddModalitiesRequest
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.request.CreateCriminalRequest
 import sk.stuba.fei.api.msus.dp.criminalmanager.service.CriminalService
@@ -31,22 +23,25 @@ class CriminalController(private val criminalService: CriminalService) {
     fun createCriminal(@RequestBody createCriminalRequest: CreateCriminalRequest) =
         criminalService.createCriminal(createCriminalRequest)
 
-    @DeleteMapping("{id}")
-    fun deleteCriminal(@PathVariable id: String) = criminalService.deleteCriminal(id)
+    @DeleteMapping("{criminalId}")
+    fun deleteCriminalById(@PathVariable criminalId: String) = criminalService.deleteCriminalById(criminalId)
 
     @DeleteMapping
     fun deleteAll() = criminalService.deleteAll()
 
-    @GetMapping("{id}/modalities")
-    fun getModalitiesForCriminal(@PathVariable id: String) =
-        criminalService.getModalitiesForCriminal(id)
+    @GetMapping("{criminalId}/modalities")
+    fun getModalitiesForCriminal(@PathVariable criminalId: String) =
+        criminalService.getModalitiesForCriminal(criminalId)
 
-    @PostMapping("{id}/modalities")
-    fun addModalitiesForCriminal(@PathVariable id: String, @RequestBody modalitiesRequest: AddModalitiesRequest) =
-        criminalService.addModalitiesForCriminal(id, modalitiesRequest)
+    @PostMapping("{criminalId}/modalities")
+    fun addModalitiesForCriminal(
+        @PathVariable criminalId: String,
+        @RequestBody modalitiesRequest: AddModalitiesRequest
+    ) = criminalService.addModalitiesForCriminal(criminalId, modalitiesRequest)
 
-    @DeleteMapping("{id}/modalities")
-    fun removeModalitiesOfCriminal(@PathVariable id: String) = criminalService.removeModalitiesOfCriminal(id)
+    @DeleteMapping("{criminalId}/modalities")
+    fun removeModalitiesOfCriminal(@PathVariable criminalId: String) =
+        criminalService.removeModalitiesOfCriminal(criminalId)
 
     @DeleteMapping("{criminalId}/modalities/{modalityId}")
     fun removeModalityOfCriminal(@PathVariable criminalId: String, @PathVariable modalityId: String) =

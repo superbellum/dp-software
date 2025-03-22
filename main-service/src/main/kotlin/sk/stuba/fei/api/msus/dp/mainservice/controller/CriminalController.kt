@@ -19,12 +19,12 @@ import sk.stuba.fei.api.msus.dp.mainservice.service.crim.CriminalManagerClient
 @RequestMapping("api/criminals")
 class CriminalController(private val criminalManagerClient: CriminalManagerClient) {
 
-    @GetMapping("{id}")
-    @Operation(summary = "Get criminal with or without their modalities")
+    @GetMapping("{criminalId}")
+    @Operation(summary = "Get criminal by ID with or without their modalities")
     fun getCriminalById(
-        @PathVariable id: String,
+        @PathVariable criminalId: String,
         @RequestParam(required = false, defaultValue = "false") withModalities: Boolean
-    ) = criminalManagerClient.getCriminalById(id, withModalities)
+    ) = criminalManagerClient.getCriminalById(criminalId, withModalities)
 
     @GetMapping
     @Operation(summary = "Get all criminals without their modalities")
@@ -35,28 +35,28 @@ class CriminalController(private val criminalManagerClient: CriminalManagerClien
     fun enroll(@RequestBody criminalEnrollRequest: CriminalEnrollRequest) =
         criminalManagerClient.enroll(criminalEnrollRequest)
 
-    @DeleteMapping("{id}")
-    @Operation(summary = "Delete criminal with all their data")
-    fun deleteCriminal(@PathVariable id: String) = criminalManagerClient.deleteCriminal(id)
+    @DeleteMapping("{criminalId}")
+    @Operation(summary = "Delete criminal by ID with all their data")
+    fun deleteCriminalById(@PathVariable criminalId: String) = criminalManagerClient.deleteCriminalById(criminalId)
 
     @DeleteMapping
     @Operation(summary = "Delete all criminals and modalities")
     fun deleteAll() = criminalManagerClient.deleteAll()
 
-    @GetMapping("{id}/modalities")
+    @GetMapping("{criminalId}/modalities")
     @Operation(summary = "Get all modalities for criminal specified by ID")
-    fun getModalitiesForCriminal(@PathVariable id: String) =
-        criminalManagerClient.getModalitiesForCriminal(id)
+    fun getModalitiesForCriminal(@PathVariable criminalId: String) =
+        criminalManagerClient.getModalitiesForCriminal(criminalId)
 
-    @PostMapping("{id}/modalities")
+    @PostMapping("{criminalId}/modalities")
     @Operation(summary = "Add modalities for criminal specified by ID")
-    fun addModalitiesForCriminal(@PathVariable id: String, @RequestBody modalitiesRequest: AddModalitiesRequest) =
-        criminalManagerClient.addModalitiesForCriminal(id, modalitiesRequest)
+    fun addModalitiesForCriminal(@PathVariable criminalId: String, @RequestBody modalitiesRequest: AddModalitiesRequest) =
+        criminalManagerClient.addModalitiesForCriminal(criminalId, modalitiesRequest)
 
-    @DeleteMapping("{id}/modalities")
+    @DeleteMapping("{criminalId}/modalities")
     @Operation(summary = "Remove all modalities for criminal specified by ID")
-    fun removeModalitiesOfCriminal(@PathVariable id: String) =
-        criminalManagerClient.removeModalitiesOfCriminal(id)
+    fun removeModalitiesOfCriminal(@PathVariable criminalId: String) =
+        criminalManagerClient.removeModalitiesOfCriminal(criminalId)
 
     @DeleteMapping("{criminalId}/modalities/{modalityId}")
     fun removeModalityOfCriminal(@PathVariable criminalId: String, @PathVariable modalityId: String) =
