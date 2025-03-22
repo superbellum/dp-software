@@ -4,6 +4,7 @@ import {GetAllCriminalsResponse} from '../model/payload/get-all-criminals-respon
 import {Observable} from 'rxjs';
 import {GetModalitiesForCriminalResponse} from '../model/payload/get-modalities-for-criminal-response.model';
 import {MessageResponse} from '../model/payload/message-response.model';
+import {NewCriminal} from '../model/new-criminal.model';
 
 const httpOptions = {
   headers: new HttpHeaders({'content-type': 'application/json'})
@@ -14,6 +15,10 @@ export class CriminalService {
   private static readonly API_URL = 'http://localhost:8090/api/criminals';
 
   private httpClient = inject(HttpClient);
+
+  createCriminal(newCriminal: NewCriminal) {
+    return this.httpClient.post(CriminalService.API_URL, {criminal: newCriminal, modalities: []}, httpOptions);
+  }
 
   getAllCriminals(): Observable<GetAllCriminalsResponse> {
     return this.httpClient.get<GetAllCriminalsResponse>(CriminalService.API_URL, httpOptions);

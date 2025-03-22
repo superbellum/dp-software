@@ -4,7 +4,7 @@
 } @else {
   <h5 class="m-2">Criminal ID: {{ criminalId() }}</h5>
   <span class="ms-2 mt-2 me-1">Number of modalities: {{modalities()?.length ?? 0}}</span>
-  <button type="button" class="btn btn-primary m-2" (click)="addNewModalityToCriminal()">Add New Modality</button>
+  <button type="button" class="btn btn-success m-2" (click)="addNewModalityToCriminal()">Add New Modality</button>
   <button type="button" class="btn btn-danger m-2" (click)="deleteAllModalitiesForCriminal()">Delete All</button>
 
   <div class="container-fluid">
