@@ -50,5 +50,25 @@ class MatcherService(MatcherServicer):
     def MatchIrises(self, request: MatchRequest, context) -> MatchResponse:
         print("matching irises")
 
-        # todo
-        return MatchResponse(matchScore=0.69)
+        sample_iris_template = request.sampleTemplate
+        real_iris_template = request.realTemplate
+
+        keypoints_count = max(sample_iris_template.keypointsSize, real_iris_template.keypointsSize)
+
+        # decode descriptors
+        sample_iris_descriptor = self._decode(sample_iris_template.encodedDescriptor)
+        real_iris_descriptor = self._decode(real_iris_template.encodedDescriptor)
+
+        # convert to numpy arrays
+        sample_iris_descriptor = np.array(sample_iris_descriptor, dtype="float32")
+        real_iris_descriptor = np.array(real_iris_descriptor, dtype="float32")
+
+        matcher = cv2.FlannBasedMatcher(dict(algorithm=1, trees=5), dict(checks=50))
+        matches = matcher.knnMatch(sample_iris_descriptor, real_iris_descriptor, k=2)
+
+        good_matches = [m for m, n in matches if m.distance < 0.9 * n.distance]
+
+        # calculate match score
+        match_score = len(good_matches) / keypoints_count * 100
+
+        return MatchResponse(matchScore=match_score)
