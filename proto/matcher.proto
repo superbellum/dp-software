@@ -8,6 +8,7 @@ option java_multiple_files = true;
 
 service Matcher {
   rpc MatchFingerprints(MatchFingerprintsRequest) returns (MatchResponse) {}
+  rpc MatchIrises(MatchIrisesRequest) returns (MatchResponse) {}
 }
 
 message MatchFingerprintsRequest {
@@ -15,11 +16,21 @@ message MatchFingerprintsRequest {
   MatchFingerprintTemplate realTemplate = 2;
 }
 
+message MatchIrisesRequest {
+  MatchIrisTemplate sampleTemplate = 1;
+  MatchIrisTemplate realTemplate = 2;
+}
+
 message MatchResponse {
   float matchScore = 1;
 }
 
 message MatchFingerprintTemplate {
+  int32 keypointsSize = 1;
+  string encodedDescriptor = 2;
+}
+
+message MatchIrisTemplate {
   int32 keypointsSize = 1;
   string encodedDescriptor = 2;
 }
