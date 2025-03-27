@@ -21,6 +21,8 @@ class FeatureExtractorService(FeatureExtractorServicer):
         return b64encode(dumps(obj, cls=NumpyArrayEncoder).encode()).decode()
 
     def ExtractFingerprint(self, request: FeatureExtractionRequest, context) -> ExtractionResponse:
+        print('extracting fingerprint')
+
         data = request.data
         data_decoded = b64decode(data)
         raw_image = Image.open(BytesIO(data_decoded))
@@ -37,8 +39,15 @@ class FeatureExtractorService(FeatureExtractorServicer):
     def ExtractIris(self, request: FeatureExtractionRequest, context) -> ExtractionResponse:
         print('extracting iris')
 
-        # todo
+        data = request.data
+        data_decoded = b64decode(data)
+        raw_image = Image.open(BytesIO(data_decoded))
+        raw_image = cv2.resize(array(raw_image), (64, 64))
+
+        sift = cv2.SIFT_create()
+        keypoints, descriptors = sift.detectAndCompute(raw_image, None)
+
         return ExtractionResponse(
-            keypointsSize=42,
-            encodedDescriptor=""
+            keypointsSize=len(keypoints),
+            encodedDescriptor=self._encode_numpy_array(descriptors)
         )
