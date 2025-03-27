@@ -20,6 +20,9 @@ def serve():
     add_IdentificatorServicer_to_server(IdentificatorService(), server)
     server.add_insecure_port(f'[::]:{identificator_port}')
     server.start()
+
+    print(f'Serving on port {identificator_port}')
+
     server.wait_for_termination()
 
 

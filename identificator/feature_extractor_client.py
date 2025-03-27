@@ -1,6 +1,7 @@
 import grpc
 import os
 
+from feature_extractor_pb2 import FeatureExtractionRequest, ExtractionResponse
 from feature_extractor_pb2_grpc import FeatureExtractorStub
 
 
@@ -21,5 +22,8 @@ class FeatureExtractorClient:
         self.channel = grpc.insecure_channel(url, options)
         self.stub = FeatureExtractorStub(channel=self.channel)
 
-    def extract_fingerprint(self, request):
+    def extract_fingerprint(self, request: FeatureExtractionRequest) -> ExtractionResponse:
         return self.stub.ExtractFingerprint(request)
+
+    def extract_iris(self, request: FeatureExtractionRequest) -> ExtractionResponse:
+        return self.stub.ExtractIris(request)

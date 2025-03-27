@@ -1,6 +1,7 @@
 import grpc
 import os
 
+from matcher_pb2 import MatchRequest, MatchResponse
 from matcher_pb2_grpc import MatcherStub
 
 
@@ -21,5 +22,8 @@ class MatcherClient:
         self.channel = grpc.insecure_channel(url, options)
         self.stub = MatcherStub(channel=self.channel)
 
-    def match_fingerprints(self, request):
+    def match_fingerprints(self, request: MatchRequest) -> MatchResponse:
         return self.stub.MatchFingerprints(request)
+
+    def match_irises(self, request: MatchRequest) -> MatchResponse:
+        return self.stub.MatchIrises(request)
