@@ -19,6 +19,9 @@ def serve():
     add_FeatureExtractorServicer_to_server(FeatureExtractorService(), server)
     server.add_insecure_port(f'[::]:{feature_extractor_port}')
     server.start()
+
+    print(f'Serving on port {feature_extractor_port}')
+
     server.wait_for_termination()
 
 

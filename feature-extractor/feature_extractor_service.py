@@ -6,7 +6,7 @@ import cv2
 from PIL import Image
 from numpy import array
 
-from feature_extractor_pb2 import FingerprintExtractionResponse
+from feature_extractor_pb2 import FeatureExtractionRequest, ExtractionResponse
 from feature_extractor_pb2_grpc import FeatureExtractorServicer
 from numpy_array_encoder import NumpyArrayEncoder
 
@@ -17,10 +17,10 @@ class FeatureExtractorService(FeatureExtractorServicer):
         pass
 
     @staticmethod
-    def _encode_numpy_array(obj):
+    def _encode_numpy_array(obj) -> str:
         return b64encode(dumps(obj, cls=NumpyArrayEncoder).encode()).decode()
 
-    def ExtractFingerprint(self, request, context):
+    def ExtractFingerprint(self, request: FeatureExtractionRequest, context) -> ExtractionResponse:
         data = request.data
         data_decoded = b64decode(data)
         raw_image = Image.open(BytesIO(data_decoded))
@@ -29,7 +29,16 @@ class FeatureExtractorService(FeatureExtractorServicer):
         sift = cv2.SIFT_create()
         keypoints, descriptors = sift.detectAndCompute(fingerprint_image, None)
 
-        return FingerprintExtractionResponse(
+        return ExtractionResponse(
             keypointsSize=len(keypoints),
             encodedDescriptor=self._encode_numpy_array(descriptors)
+        )
+
+    def ExtractIris(self, request: FeatureExtractionRequest, context) -> ExtractionResponse:
+        print('extracting iris')
+
+        # todo
+        return ExtractionResponse(
+            keypointsSize=42,
+            encodedDescriptor=""
         )
