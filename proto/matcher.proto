@@ -1,4 +1,4 @@
-// python3 -m grpc_tools.protoc --proto_path=../proto matcher.proto --python_out=. --grpc_python_out=.
+// python -m grpc_tools.protoc -I../proto --python_out=. --pyi_out=. --grpc_python_out=. matcher.proto
 
 syntax = "proto3";
 
@@ -7,30 +7,20 @@ package sk.stuba.fei.api.msus.dp.matcher;
 option java_multiple_files = true;
 
 service Matcher {
-  rpc MatchFingerprints(MatchFingerprintsRequest) returns (MatchResponse) {}
-  rpc MatchIrises(MatchIrisesRequest) returns (MatchResponse) {}
+  rpc MatchFingerprints(MatchRequest) returns (MatchResponse) {}
+  rpc MatchIrises(MatchRequest) returns (MatchResponse) {}
 }
 
-message MatchFingerprintsRequest {
-  MatchFingerprintTemplate sampleTemplate = 1;
-  MatchFingerprintTemplate realTemplate = 2;
-}
-
-message MatchIrisesRequest {
-  MatchIrisTemplate sampleTemplate = 1;
-  MatchIrisTemplate realTemplate = 2;
+message MatchRequest {
+  MatchTemplate sampleTemplate = 1;
+  MatchTemplate realTemplate = 2;
 }
 
 message MatchResponse {
   float matchScore = 1;
 }
 
-message MatchFingerprintTemplate {
-  int32 keypointsSize = 1;
-  string encodedDescriptor = 2;
-}
-
-message MatchIrisTemplate {
+message MatchTemplate {
   int32 keypointsSize = 1;
   string encodedDescriptor = 2;
 }

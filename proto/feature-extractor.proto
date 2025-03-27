@@ -1,4 +1,4 @@
-// python3 -m grpc_tools.protoc --proto_path=../proto feature-extractor.proto --python_out=. --grpc_python_out=.
+// python -m grpc_tools.protoc -I../proto --python_out=. --pyi_out=. --grpc_python_out=. feature-extractor.proto
 
 syntax = "proto3";
 
@@ -7,22 +7,15 @@ package sk.stuba.fei.api.msus.dp.featureextractor;
 option java_multiple_files = true;
 
 service FeatureExtractor {
-  rpc ExtractFingerprint(FeatureExtractionRequest) returns (FingerprintExtractionResponse) {}
-  rpc ExtractIris(FeatureExtractionRequest) returns (IrisExtractionResponse) {}
+  rpc ExtractFingerprint(FeatureExtractionRequest) returns (ExtractionResponse) {}
+  rpc ExtractIris(FeatureExtractionRequest) returns (ExtractionResponse) {}
 }
 
 message FeatureExtractionRequest {
   string data = 1;
 }
 
-// fingerprint
-message FingerprintExtractionResponse {
-  int32 keypointsSize = 1;
-  string encodedDescriptor = 2;
-}
-
-// iris
-message IrisExtractionResponse {
+message ExtractionResponse {
   int32 keypointsSize = 1;
   string encodedDescriptor = 2;
 }
