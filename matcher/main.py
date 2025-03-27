@@ -20,6 +20,9 @@ def serve():
     add_MatcherServicer_to_server(MatcherService(), server)
     server.add_insecure_port(f'[::]:{matcher_port}')
     server.start()
+
+    print(f'Serving on port {matcher_port}')
+
     server.wait_for_termination()
 
 

@@ -4,7 +4,7 @@ from json import loads
 import cv2
 import numpy as np
 
-from matcher_pb2 import MatchFingerprintsRequest, MatchResponse
+from matcher_pb2 import MatchRequest, MatchResponse
 from matcher_pb2_grpc import MatcherServicer
 
 
@@ -17,7 +17,9 @@ class MatcherService(MatcherServicer):
     def _decode(data):
         return loads(b64decode(data.encode()).decode())
 
-    def MatchFingerprints(self, request: MatchFingerprintsRequest, context) -> MatchResponse:
+    def MatchFingerprints(self, request: MatchRequest, context) -> MatchResponse:
+        print("matching fingerprints")
+
         sample_fingerprint_template = request.sampleTemplate
         real_fingerprint_template = request.realTemplate
 
@@ -44,3 +46,9 @@ class MatcherService(MatcherServicer):
         match_score = len(match_points) / keypoints_count * 100
 
         return MatchResponse(matchScore=match_score)
+
+    def MatchIrises(self, request: MatchRequest, context) -> MatchResponse:
+        print("matching irises")
+
+        # todo
+        return MatchResponse(matchScore=0.69)
