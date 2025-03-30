@@ -72,7 +72,12 @@ class IdentificatorService(IdentificatorServicer):
         )
 
         # query criminal biom. data (modalities) from db
-        for modality in self.mongo_client.dp_criminal.modality.find():
+        criminal_modalities = list(self.mongo_client.dp_criminal.modality.find())
+
+        if criminal_modalities is None or len(criminal_modalities) == 0:
+            return IdentificationResponse(hitlist=[])
+
+        for modality in criminal_modalities:
             match_request = MatchRequest(
                 sampleTemplate=sample_match_template,
                 realTemplate=MatchTemplate(
@@ -110,7 +115,7 @@ class IdentificatorService(IdentificatorServicer):
         )
 
         # find modalities by criminalId
-        criminal_modalities = self.mongo_client.dp_criminal.modality.find({'criminalId': criminal_id})
+        criminal_modalities = list(self.mongo_client.dp_criminal.modality.find({'criminalId': criminal_id}))
 
         if criminal_modalities is None or len(criminal_modalities) == 0:
             return VerificationResponse(verified=False)
