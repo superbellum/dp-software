@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {GetModalitiesForCriminalResponse} from '../model/payload/get-modalities-for-criminal-response.model';
 import {MessageResponse} from '../model/payload/message-response.model';
 import {NewCriminal} from '../model/new-criminal.model';
+import {AddModalityForCriminalRequest} from '../model/add-modality-for-criminal-request.model';
 
 const httpOptions = {
   headers: new HttpHeaders({'content-type': 'application/json'})
@@ -28,15 +29,19 @@ export class CriminalService {
     return this.httpClient.get<GetModalitiesForCriminalResponse>(`${CriminalService.API_URL}/${criminalId}/modalities`, httpOptions);
   }
 
-  deleteAllModalitiesForCriminal(criminalId: string) {
+  addModalitiesToCriminal(criminalId: string, request: AddModalityForCriminalRequest): Observable<MessageResponse> {
+    return this.httpClient.post<MessageResponse>(`${CriminalService.API_URL}/${criminalId}/modalities`, request, httpOptions);
+  }
+
+  deleteAllModalitiesForCriminal(criminalId: string): Observable<MessageResponse> {
     return this.httpClient.delete<MessageResponse>(`${CriminalService.API_URL}/${criminalId}/modalities`);
   }
 
-  deleteModalityForCriminal(criminalId: string, modalityId: string) {
+  deleteModalityForCriminal(criminalId: string, modalityId: string): Observable<MessageResponse> {
     return this.httpClient.delete<MessageResponse>(`${CriminalService.API_URL}/${criminalId}/modalities/${modalityId}`);
   }
 
-  deleteCriminalById(criminalId: string) {
+  deleteCriminalById(criminalId: string): Observable<MessageResponse> {
     return this.httpClient.delete<MessageResponse>(`${CriminalService.API_URL}/${criminalId}`);
   }
 }

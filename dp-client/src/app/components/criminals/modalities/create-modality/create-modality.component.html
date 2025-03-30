@@ -1,1 +1,30 @@
-<p>create-modality works!</p>
+<button type="button" class="btn btn-secondary m-2" (click)="goBack()">Back</button>
+
+<div class="container mb-3 mt-3">
+  <form (ngSubmit)="onSubmit()" novalidate>
+    <div class="dropdown mb-3">
+      <div class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
+           aria-expanded="false">
+        {{ modalityType() ?? "Select Modality Type" }}
+      </div>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li>
+          <a class="dropdown-item" style="cursor: pointer" (click)="modalityType.set('FINGERPRINT')">
+            <i class="bi-fingerprint"></i> FINGERPRINT
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item" style="cursor: pointer" (click)="modalityType.set('IRIS')">
+            <i class="bi-eye"></i> IRIS
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="mb-3">
+      <input type="file" class="form-control" (change)="onFileSelected($event)">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

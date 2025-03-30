@@ -1,8 +1,8 @@
 import {Component, inject, signal} from '@angular/core';
-import {Router} from '@angular/router';
 import {CriminalService} from '../../../services/criminal.service';
 import {FormsModule} from '@angular/forms';
 import {NewCriminal} from '../../../model/new-criminal.model';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-create-criminal',
@@ -24,10 +24,10 @@ export class CreateCriminalComponent {
   phoneNumber = signal('');
 
   private criminalService = inject(CriminalService);
-  private router = inject(Router);
+  private location = inject(Location);
 
   goBack() {
-    this.router.navigate(['..']);
+    this.location.back();
   }
 
   onSubmit() {
@@ -47,10 +47,9 @@ export class CreateCriminalComponent {
     this.criminalService.createCriminal(newCriminal).subscribe({
       next: (resp) => {
         console.log(resp);
-        this.router.navigate([".."]);
+        this.location.back();
       },
       error: (err) => console.error(err)
     });
   }
-
 }

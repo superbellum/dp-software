@@ -3,6 +3,7 @@ import {Modality} from '../../../model/modality.model';
 import {CriminalService} from '../../../services/criminal.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModalityCardComponent} from './modality-card/modality-card.component';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-modalities',
@@ -19,6 +20,7 @@ export class ModalitiesComponent implements OnInit {
   private criminalService = inject(CriminalService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private location = inject(Location);
 
   ngOnInit(): void {
     const criminalId = this.route.snapshot.paramMap.get('id');
@@ -34,7 +36,7 @@ export class ModalitiesComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['..']);
+    this.location.back();
   }
 
   deleteAllModalitiesForCriminal() {

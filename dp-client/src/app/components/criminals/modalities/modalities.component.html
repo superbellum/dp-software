@@ -1,11 +1,11 @@
 <button type="button" class="btn btn-secondary m-2" (click)="goBack()">Back</button>
+<button type="button" class="btn btn-success m-2" (click)="addNewModalityToCriminal()">Add New Modality</button>
 @if (!modalities() || modalities()?.length === 0) {
-  <p class="m-2">No modalities for the criminal ({{criminalId()}})</p>
+  <span class="m-2">No modalities for the criminal ({{criminalId()}})</span>
 } @else {
-  <h5 class="m-2">Criminal ID: {{ criminalId() }}</h5>
-  <span class="ms-2 mt-2 me-1">Number of modalities: {{modalities()?.length ?? 0}}</span>
-  <button type="button" class="btn btn-success m-2" (click)="addNewModalityToCriminal()">Add New Modality</button>
+
   <button type="button" class="btn btn-danger m-2" (click)="deleteAllModalitiesForCriminal()">Delete All</button>
+  <span class="ms-2">Criminal ID: {{ criminalId() }}, number of modalities: {{modalities()?.length ?? 0}}</span>
 
   <div class="container-fluid">
     @for (modality of modalities(); track modality.id) {
