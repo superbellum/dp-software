@@ -3,6 +3,7 @@ package sk.stuba.fei.api.msus.dp.criminalmanager.service
 import io.grpc.ManagedChannelBuilder
 import org.springframework.stereotype.Service
 import sk.stuba.fei.api.msus.dp.criminalmanager.config.FeatureExtractorClientConfiguration
+import sk.stuba.fei.api.msus.dp.featureextractor.ExtractionResponse
 import sk.stuba.fei.api.msus.dp.featureextractor.FeatureExtractionRequest
 import sk.stuba.fei.api.msus.dp.featureextractor.FeatureExtractorGrpc
 
@@ -15,5 +16,7 @@ class FeatureExtractorClient(private val configuration: FeatureExtractorClientCo
             .build()
     )
 
-    fun extractFingerprint(request: FeatureExtractionRequest) = stub.extractFingerprint(request)
+    fun extractFingerprint(request: FeatureExtractionRequest): ExtractionResponse = stub.extractFingerprint(request)
+
+    fun extractIris(request: FeatureExtractionRequest): ExtractionResponse = stub.extractIris(request)
 }

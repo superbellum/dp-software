@@ -5,5 +5,5 @@ import sk.stuba.fei.api.msus.dp.criminalmanager.model.dto.ModalityRequestDto
 
 data class CreateCriminalRequest(
     val criminal: CriminalRequestDto,
-    val modalities: List<ModalityRequestDto>? = null
+    val modalities: List<ModalityRequestDto> = emptyList()
 )

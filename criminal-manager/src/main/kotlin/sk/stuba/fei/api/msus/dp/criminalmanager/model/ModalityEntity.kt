@@ -9,8 +9,10 @@ open class ModalityEntity(
     @Id
     var id: String? = null,
     var criminalId: String,
-    var type: ModalityType,
-    val rawData: String
+    val type: ModalityType,
+    val rawData: String,
+    val keypointsSize: Int,
+    val encodedDescriptor: String
 ) {
     fun toResponseDto() = ModalityResponseDto(
         id = id!!,
