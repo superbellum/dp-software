@@ -30,6 +30,7 @@ message IdentificationResponse {
 
 message VerificationResponse {
   bool verified = 1;
+  float matchScore = 2;
 }
 
 message IdentificationParameters {

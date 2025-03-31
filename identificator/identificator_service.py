@@ -16,8 +16,10 @@ class IdentificatorService(IdentificatorServicer):
     def __init__(self, *args, **kwargs):
         self.matcher_client = MatcherClient()
         self.feature_extractor_client = FeatureExtractorClient()
-        self.mongo_client = pymongo.MongoClient(os.getenv('DP_MONGO_HOST', 'localhost'),
-                                                int(os.getenv('DP_MONGO_PORT', '27017')))
+        mongodb_host = os.getenv('DP_MONGO_HOST', 'localhost')
+        mongodb_port = int(os.getenv('DP_MONGO_PORT', '27117'))
+        self.mongo_client = pymongo.MongoClient(mongodb_host, mongodb_port)
+        print(f'Connected to MongoDB on {mongodb_host}:{mongodb_port}')
 
     def _get_criminal_from_db(self, criminal_id: str):
         return self.mongo_client.dp_criminal.criminal.find_one(ObjectId(criminal_id))
@@ -118,7 +120,7 @@ class IdentificatorService(IdentificatorServicer):
         criminal_modalities = list(self.mongo_client.dp_criminal.modality.find({'criminalId': criminal_id}))
 
         if criminal_modalities is None or len(criminal_modalities) == 0:
-            return VerificationResponse(verified=False)
+            return VerificationResponse(verified=False, matchScore=0.0)
 
         for modality in criminal_modalities:
             match_request = MatchRequest(
@@ -132,6 +134,6 @@ class IdentificatorService(IdentificatorServicer):
             match_score = self._match_modality(match_request=match_request, modality_type=modality["type"])
 
             if match_score_threshold <= match_score <= 100.0:
-                return VerificationResponse(verified=True)
+                return VerificationResponse(verified=True, matchScore=match_score)
 
-        return VerificationResponse(verified=False)
+        return VerificationResponse(verified=False, matchScore=0.0)
