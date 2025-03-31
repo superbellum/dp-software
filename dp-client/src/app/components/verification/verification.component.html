@@ -1,1 +1,61 @@
-<p>verification works!</p>
+<div class="container mb-3 mt-3">
+  <form (ngSubmit)="onSubmit()" novalidate>
+    <div class="mb-3">
+      <label for="criminalId" class="form-label">Criminal ID:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="criminalId"
+        name="criminalId"
+        placeholder="Enter ID of criminal"
+        required
+        [(ngModel)]="criminalId"
+      >
+    </div>
+
+    <div class="dropdown mb-3">
+      <div class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
+           aria-expanded="false">
+        {{ modalityType() ?? "Select Modality Type" }}
+      </div>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li>
+          <a class="dropdown-item" style="cursor: pointer" (click)="modalityType.set('FINGERPRINT')">
+            <i class="bi-fingerprint"></i> FINGERPRINT
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item" style="cursor: pointer" (click)="modalityType.set('IRIS')">
+            <i class="bi-eye"></i> IRIS
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="mb-3">
+      <input type="file" class="form-control" (change)="onFileSelected($event)">
+    </div>
+
+    <div class="mb-3">
+      <label for="matchScoreThreshold" class="form-label">Match Score Threshold:</label>
+      <input
+        type="number"
+        min="0"
+        max="100"
+        class="form-control"
+        id="matchScoreThreshold"
+        name="matchScoreThreshold"
+        placeholder="Enter ID of criminal"
+        required
+        [(ngModel)]="matchScoreThreshold"
+      >
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <h4 [style]="{'color': verified() ? 'green' : 'red'}" class="mt-3">Verified: {{ verified() ? "Yes" : "No" }}</h4>
+  @if (verified() && matchScore()) {
+    <h4>Match score: {{ matchScore() }}</h4>
+  }
+
+</div>

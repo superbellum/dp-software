@@ -41,7 +41,6 @@ export class CreateModalityComponent implements OnInit {
 
       this.criminalService.addModalitiesToCriminal(this.criminalId()!, {modalities: [addModality]}).subscribe({
         next: (res) => {
-          console.log(res);
           this.location.back();
         },
         error: (err) => console.error(err)
