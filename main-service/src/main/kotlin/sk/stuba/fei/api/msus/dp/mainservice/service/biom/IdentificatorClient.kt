@@ -2,11 +2,7 @@ package sk.stuba.fei.api.msus.dp.mainservice.service.biom
 
 import io.grpc.ManagedChannelBuilder
 import org.springframework.stereotype.Service
-import sk.stuba.fei.api.msus.dp.identificator.IdentificationParameters
-import sk.stuba.fei.api.msus.dp.identificator.IdentificationResponse
-import sk.stuba.fei.api.msus.dp.identificator.IdentificatorGrpc
-import sk.stuba.fei.api.msus.dp.identificator.VerificationParameters
-import sk.stuba.fei.api.msus.dp.identificator.VerificationResponse
+import sk.stuba.fei.api.msus.dp.identificator.*
 import sk.stuba.fei.api.msus.dp.mainservice.config.IdentificatorClientConfiguration
 import sk.stuba.fei.api.msus.dp.mainservice.payload.request.IdentificationRequest
 import sk.stuba.fei.api.msus.dp.mainservice.payload.request.VerificationRequest
@@ -22,7 +18,7 @@ class IdentificatorClient(private val configuration: IdentificatorClientConfigur
             .build()
     )
 
-    fun identify(identificationRequest: IdentificationRequest): IdentificationResponse? {
+    fun identify(identificationRequest: IdentificationRequest): IdentificationResponse {
         val grpcIdentificationParams = IdentificationParameters.newBuilder()
             .setMatchScoreThreshold(
                 identificationRequest.identificationParameters
@@ -45,7 +41,7 @@ class IdentificatorClient(private val configuration: IdentificatorClientConfigur
         return stub.identify(grpcIdentificationRequest)
     }
 
-    fun verify(verificationRequest: VerificationRequest): VerificationResponse? {
+    fun verify(verificationRequest: VerificationRequest): VerificationResponse {
         val grpcVerificationParams = VerificationParameters.newBuilder()
             .setMatchScoreThreshold(
                 verificationRequest.verificationParameters

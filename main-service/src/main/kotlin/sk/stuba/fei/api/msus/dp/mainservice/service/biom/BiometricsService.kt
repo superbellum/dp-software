@@ -27,10 +27,13 @@ class BiometricsService(private val identificatorClient: IdentificatorClient) {
     }
 
     fun verify(verificationRequest: VerificationRequest): ResponseEntity<CriminalVerificationResponse> {
-        val verified = identificatorClient.verify(verificationRequest)
-            ?.verified
-            ?: return ResponseEntity.ok(CriminalVerificationResponse())
+        val verificationResponse = identificatorClient.verify(verificationRequest)
 
-        return ResponseEntity.ok(CriminalVerificationResponse(verified))
+        return ResponseEntity.ok(
+            CriminalVerificationResponse(
+                verified = verificationResponse.verified,
+                matchScore = verificationResponse.matchScore
+            )
+        )
     }
 }
