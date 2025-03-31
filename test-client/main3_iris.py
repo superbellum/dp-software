@@ -32,13 +32,13 @@ def compare_iris(image1_path, image2_path):
 
     similarity_score = len(good_matches) / min(len(keypoints1), len(keypoints2))
 
-    print(f'similarity score: {similarity_score}')
+    print(f'similarity score: {similarity_score * 100}%')
 
     return similarity_score > 0.6  # Adjust threshold as needed
 
 # Example Usage
-reference_iris = "iris_data/fional1.bmp"
-test_iris = "iris_data/fional1.bmp"
+reference_iris = "iris_data/aeval1.bmp"
+test_iris = "iris_data/aeval3.bmp"
 
 if compare_iris(reference_iris, test_iris):
     print("Iris Matched!")
