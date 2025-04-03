@@ -1,7 +1,7 @@
 package sk.stuba.fei.api.msus.dp.mainservice.payload.request
 
-import sk.stuba.fei.api.msus.dp.mainservice.model.dto.ModalityRequestDto
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.ModalityRequest
 
 data class AddModalitiesRequest(
-    val modalities: List<ModalityRequestDto>
+    val modalities: List<ModalityRequest>
 )

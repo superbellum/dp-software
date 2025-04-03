@@ -3,7 +3,7 @@ package sk.stuba.fei.api.msus.dp.mainservice.service.biom
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import sk.stuba.fei.api.msus.dp.mainservice.model.CriminalCandidate
-import sk.stuba.fei.api.msus.dp.mainservice.model.dto.CriminalResponseDto
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.CriminalResponse
 import sk.stuba.fei.api.msus.dp.mainservice.payload.request.IdentificationRequest
 import sk.stuba.fei.api.msus.dp.mainservice.payload.request.VerificationRequest
 import sk.stuba.fei.api.msus.dp.mainservice.payload.response.CriminalIdentificationResponse
@@ -18,7 +18,7 @@ class BiometricsService(private val identificatorClient: IdentificatorClient) {
 
         val responseHitlist = hitlist.mapNotNull {
             CriminalCandidate(
-                criminal = CriminalResponseDto.fromGrpcCriminal(it.criminal),
+                criminal = CriminalResponse.fromGrpcCriminal(it.criminal),
                 matchScore = it.matchScore
             )
         }

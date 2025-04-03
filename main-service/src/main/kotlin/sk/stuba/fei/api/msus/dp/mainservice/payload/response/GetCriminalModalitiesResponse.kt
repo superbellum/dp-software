@@ -1,8 +1,8 @@
 package sk.stuba.fei.api.msus.dp.mainservice.payload.response
 
-import sk.stuba.fei.api.msus.dp.mainservice.model.dto.ModalityResponseDto
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.ModalityResponse
 
 data class GetCriminalModalitiesResponse(
     val criminalId: String,
-    val modalities: List<ModalityResponseDto>? = null
+    val modalities: List<ModalityResponse>? = null
 )
