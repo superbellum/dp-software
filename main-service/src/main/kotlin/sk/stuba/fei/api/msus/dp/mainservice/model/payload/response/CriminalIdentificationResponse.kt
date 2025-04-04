@@ -1,4 +1,4 @@
-package sk.stuba.fei.api.msus.dp.mainservice.payload.response
+package sk.stuba.fei.api.msus.dp.mainservice.model.payload.response
 
 import sk.stuba.fei.api.msus.dp.mainservice.model.CriminalCandidate
 

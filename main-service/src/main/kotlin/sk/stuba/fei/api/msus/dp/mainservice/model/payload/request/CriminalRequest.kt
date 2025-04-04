@@ -1,4 +1,4 @@
-package sk.stuba.fei.api.msus.dp.mainservice.model.payload
+package sk.stuba.fei.api.msus.dp.mainservice.model.payload.request
 
 import sk.stuba.fei.api.msus.dp.mainservice.model.Address
 

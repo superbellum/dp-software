@@ -2,10 +2,14 @@ package sk.stuba.fei.api.msus.dp.mainservice.service.biom
 
 import io.grpc.ManagedChannelBuilder
 import org.springframework.stereotype.Service
-import sk.stuba.fei.api.msus.dp.identificator.*
+import sk.stuba.fei.api.msus.dp.identificator.IdentificationParameters
+import sk.stuba.fei.api.msus.dp.identificator.IdentificationResponse
+import sk.stuba.fei.api.msus.dp.identificator.IdentificatorGrpc
+import sk.stuba.fei.api.msus.dp.identificator.VerificationParameters
+import sk.stuba.fei.api.msus.dp.identificator.VerificationResponse
 import sk.stuba.fei.api.msus.dp.mainservice.config.IdentificatorClientConfiguration
-import sk.stuba.fei.api.msus.dp.mainservice.payload.request.IdentificationRequest
-import sk.stuba.fei.api.msus.dp.mainservice.payload.request.VerificationRequest
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.IdentificationRequest
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.VerificationRequest
 import sk.stuba.fei.api.msus.dp.identificator.IdentificationRequest as GrpcIdentificationRequest
 import sk.stuba.fei.api.msus.dp.identificator.VerificationRequest as GrpcVerificationRequest
 
@@ -34,7 +38,7 @@ class IdentificatorClient(private val configuration: IdentificatorClientConfigur
 
         val grpcIdentificationRequest = GrpcIdentificationRequest.newBuilder()
             .setModalityType(identificationRequest.modality.type.toString())
-            .setData(identificationRequest.modality.data)
+            .setData(identificationRequest.modality.rawData)
             .setIdentificationParameters(grpcIdentificationParams)
             .build()
 
@@ -51,7 +55,7 @@ class IdentificatorClient(private val configuration: IdentificatorClientConfigur
 
         val grpcVerificationRequest = GrpcVerificationRequest.newBuilder()
             .setModalityType(verificationRequest.modality.type.toString())
-            .setData(verificationRequest.modality.data)
+            .setData(verificationRequest.modality.rawData)
             .setCriminalId(verificationRequest.criminalId)
             .setVerificationParameters(grpcVerificationParams)
             .build()

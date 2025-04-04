@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import sk.stuba.fei.api.msus.dp.mainservice.payload.request.AddModalitiesRequest
-import sk.stuba.fei.api.msus.dp.mainservice.payload.request.CriminalEnrollRequest
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.AddModalitiesRequest
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.CriminalEnrollRequest
 import sk.stuba.fei.api.msus.dp.mainservice.service.crim.CriminalManagerClient
 
 @CrossOrigin
@@ -50,7 +50,10 @@ class CriminalController(private val criminalManagerClient: CriminalManagerClien
 
     @PostMapping("{criminalId}/modalities")
     @Operation(summary = "Add modalities for criminal specified by ID")
-    fun addModalitiesForCriminal(@PathVariable criminalId: String, @RequestBody modalitiesRequest: AddModalitiesRequest) =
+    fun addModalitiesForCriminal(
+        @PathVariable criminalId: String,
+        @RequestBody modalitiesRequest: AddModalitiesRequest
+    ) =
         criminalManagerClient.addModalitiesForCriminal(criminalId, modalitiesRequest)
 
     @DeleteMapping("{criminalId}/modalities")

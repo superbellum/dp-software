@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
-import sk.stuba.fei.api.msus.dp.mainservice.model.payload.CriminalResponse
-import sk.stuba.fei.api.msus.dp.mainservice.payload.request.AddModalitiesRequest
-import sk.stuba.fei.api.msus.dp.mainservice.payload.request.CriminalEnrollRequest
-import sk.stuba.fei.api.msus.dp.mainservice.payload.response.GetAllCriminalsResponse
-import sk.stuba.fei.api.msus.dp.mainservice.payload.response.GetCriminalModalitiesResponse
-import sk.stuba.fei.api.msus.dp.mainservice.payload.response.GetCriminalResponse
-import sk.stuba.fei.api.msus.dp.mainservice.payload.response.MessageResponse
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.AddModalitiesRequest
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.CriminalEnrollRequest
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.GetAllCriminalsResponse
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.GetCriminalModalitiesResponse
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.GetCriminalResponse
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.MessageResponse
 
 @FeignClient(name = "criminal-manager", url = "\${app.criminal-manager.url}")
 interface CriminalManagerClient {
@@ -29,7 +28,7 @@ interface CriminalManagerClient {
     fun getAllCriminals(): ResponseEntity<GetAllCriminalsResponse>
 
     @PostMapping
-    fun enroll(@RequestBody criminalEnrollRequest: CriminalEnrollRequest): ResponseEntity<CriminalResponse>
+    fun enroll(@RequestBody criminalEnrollRequest: CriminalEnrollRequest): ResponseEntity<out Any>
 
     @DeleteMapping("{criminalId}")
     fun deleteCriminalById(@PathVariable criminalId: String): ResponseEntity<MessageResponse>

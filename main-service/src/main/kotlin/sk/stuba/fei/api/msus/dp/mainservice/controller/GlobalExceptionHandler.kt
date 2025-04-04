@@ -6,7 +6,7 @@ import feign.FeignException
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
-import sk.stuba.fei.api.msus.dp.mainservice.payload.response.MessageResponse
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.MessageResponse
 
 @ControllerAdvice
 class GlobalExceptionHandler {

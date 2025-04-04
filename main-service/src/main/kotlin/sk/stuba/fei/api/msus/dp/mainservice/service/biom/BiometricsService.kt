@@ -3,11 +3,11 @@ package sk.stuba.fei.api.msus.dp.mainservice.service.biom
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import sk.stuba.fei.api.msus.dp.mainservice.model.CriminalCandidate
-import sk.stuba.fei.api.msus.dp.mainservice.model.payload.CriminalResponse
-import sk.stuba.fei.api.msus.dp.mainservice.payload.request.IdentificationRequest
-import sk.stuba.fei.api.msus.dp.mainservice.payload.request.VerificationRequest
-import sk.stuba.fei.api.msus.dp.mainservice.payload.response.CriminalIdentificationResponse
-import sk.stuba.fei.api.msus.dp.mainservice.payload.response.CriminalVerificationResponse
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.CriminalResponse
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.IdentificationRequest
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.VerificationRequest
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.CriminalIdentificationResponse
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.CriminalVerificationResponse
 
 @Service
 class BiometricsService(private val identificatorClient: IdentificatorClient) {

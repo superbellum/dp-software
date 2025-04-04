@@ -1,4 +1,4 @@
-package sk.stuba.fei.api.msus.dp.mainservice.model.payload
+package sk.stuba.fei.api.msus.dp.mainservice.model.payload.response
 
 import sk.stuba.fei.api.msus.dp.identificator.Criminal
 import sk.stuba.fei.api.msus.dp.mainservice.model.Address
