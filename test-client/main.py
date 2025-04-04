@@ -4,7 +4,7 @@ from random import randint
 import requests
 from time import sleep
 
-data_filename = 'C:/Users/gughp/Desktop/data'
+data_filename = 'C:/Users/gughp/Desktop/DEV/DP/database'
 
 cities = [
     "New York",  # USA
