@@ -3,6 +3,7 @@ package sk.stuba.fei.api.msus.dp.criminalmanager.model
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.dto.CriminalResponseDto
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.entity.Address
 
 @Document("criminal")
 data class CriminalEntity(

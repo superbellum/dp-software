@@ -1,4 +1,4 @@
-package sk.stuba.fei.api.msus.dp.criminalmanager.model
+package sk.stuba.fei.api.msus.dp.criminalmanager.model.entity
 
 data class Address(
     val country: String,

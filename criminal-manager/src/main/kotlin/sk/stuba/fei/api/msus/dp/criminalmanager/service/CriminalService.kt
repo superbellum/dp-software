@@ -2,10 +2,15 @@ package sk.stuba.fei.api.msus.dp.criminalmanager.service
 
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
-import sk.stuba.fei.api.msus.dp.criminalmanager.model.ModalityEntity
-import sk.stuba.fei.api.msus.dp.criminalmanager.model.ModalityType
-import sk.stuba.fei.api.msus.dp.criminalmanager.model.dto.CriminalResponseDto
-import sk.stuba.fei.api.msus.dp.criminalmanager.model.dto.ModalityRequestDto
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.ModalityType.FINGERPRINT
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.ModalityType.IRIS
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.UnsupportedModalityTypeException
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.dto.FingerprintModalityRequestDto
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.dto.IModalityRequestDto
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.dto.IrisModalityRequestDto
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.entity.FingerprintModalityEntity
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.entity.IModalityEntity
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.entity.IrisModalityEntity
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.request.AddModalitiesRequest
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.request.CreateCriminalRequest
 import sk.stuba.fei.api.msus.dp.criminalmanager.payload.response.GetAllCriminalsResponse
@@ -22,7 +27,6 @@ class CriminalService(
     private val modalityRepository: ModalityRepository,
     private val featureExtractorClient: FeatureExtractorClient
 ) {
-
     fun getCriminalById(id: String, withModalities: Boolean): ResponseEntity<GetCriminalResponse> {
         val criminal = criminalRepository.findById(id)
 
@@ -49,24 +53,25 @@ class CriminalService(
             )
         )
 
-    fun createCriminal(createCriminalRequest: CreateCriminalRequest): ResponseEntity<CriminalResponseDto> {
+    fun createCriminal(createCriminalRequest: CreateCriminalRequest): ResponseEntity<out Any> {
         val savedCriminal = criminalRepository.save(createCriminalRequest.criminal.toEntity())
-        saveModalitiesForCriminal(savedCriminal.id!!, createCriminalRequest.modalities)
-
-        return ResponseEntity.ok(savedCriminal.toResponseDto())
+        try {
+            saveModalitiesForCriminal(savedCriminal.id!!, createCriminalRequest.modalities)
+            return ResponseEntity.ok(savedCriminal.toResponseDto())
+        } catch (ex: UnsupportedModalityTypeException) {
+            return ResponseEntity.badRequest().body(MessageResponse(ex.message))
+        }
     }
 
     fun deleteAll(): ResponseEntity<MessageResponse> {
         criminalRepository.deleteAll()
         modalityRepository.deleteAll()
-
         return ResponseEntity.ok(MessageResponse("Deleted all criminals and modalities"))
     }
 
     fun deleteCriminalById(id: String) = if (criminalRepository.existsById(id)) {
         criminalRepository.deleteById(id)
         modalityRepository.deleteAllByCriminalId(id)
-
         ResponseEntity.ok(MessageResponse("Criminal with ID '$id' deleted along with their modalities"))
     } else {
         ResponseEntity.badRequest().body(MessageResponse("Criminal with ID '$id' does not exist"))
@@ -85,9 +90,12 @@ class CriminalService(
         modalitiesRequest: AddModalitiesRequest
     ): ResponseEntity<MessageResponse> =
         if (criminalRepository.existsById(criminalId)) {
-            saveModalitiesForCriminal(criminalId, modalitiesRequest.modalities)
-
-            ResponseEntity.ok(MessageResponse("Modalities added for criminal with ID '$criminalId'"))
+            try {
+                saveModalitiesForCriminal(criminalId, modalitiesRequest.modalities)
+                ResponseEntity.ok(MessageResponse("Modalities added for criminal with ID '$criminalId'"))
+            } catch (ex: UnsupportedModalityTypeException) {
+                ResponseEntity.badRequest().body(MessageResponse(ex.message))
+            }
         } else {
             ResponseEntity.badRequest().body(MessageResponse("Criminal with ID '$criminalId' does not exist"))
         }
@@ -113,52 +121,51 @@ class CriminalService(
             ResponseEntity.badRequest().body(MessageResponse("Criminal with ID '$criminalId' does not exist"))
         }
 
-    private fun saveModalitiesForCriminal(criminalId: String, modalities: List<ModalityRequestDto>) {
+    private fun saveModalitiesForCriminal(criminalId: String, modalities: List<IModalityRequestDto>) {
         modalities.map {
             when (it.type) {
-                ModalityType.FINGERPRINT -> createFingerprintModalityEntity(criminalId, it.data)
-                ModalityType.IRIS -> createIrisModalityEntity(criminalId, it.data)
-                else ->
-                    ModalityEntity(
-                        criminalId = criminalId,
-                        type = it.type,
-                        rawData = it.data,
-                        keypointsSize = 0,
-                        encodedDescriptor = ""
-                    )
+                FINGERPRINT -> createFingerprintModalityEntity(criminalId, it as FingerprintModalityRequestDto)
+                IRIS -> createIrisModalityEntity(criminalId, it as IrisModalityRequestDto)
+                else -> throw UnsupportedModalityTypeException(message = "Unsupported modality type: ${it.type}")
             }
         }.run { modalityRepository.saveAll(this) }
     }
 
-    private fun createFingerprintModalityEntity(criminalId: String, data: String): ModalityEntity {
+    private fun createFingerprintModalityEntity(
+        criminalId: String,
+        requestDto: FingerprintModalityRequestDto
+    ): IModalityEntity {
         val extractionResponse = featureExtractorClient.extractFingerprint(
             FeatureExtractionRequest.newBuilder()
-                .setData(data)
+                .setData(requestDto.rawData)
                 .build()
         )
 
-        return ModalityEntity(
+        return FingerprintModalityEntity(
             criminalId = criminalId,
-            rawData = data,
-            type = ModalityType.FINGERPRINT,
+            rawData = requestDto.rawData,
             keypointsSize = extractionResponse.keypointsSize,
-            encodedDescriptor = extractionResponse.encodedDescriptor
+            encodedDescriptor = extractionResponse.encodedDescriptor,
+            position = requestDto.position
         )
     }
 
-    private fun createIrisModalityEntity(criminalId: String, data: String): ModalityEntity {
+    private fun createIrisModalityEntity(
+        criminalId: String,
+        requestDto: IrisModalityRequestDto
+    ): IModalityEntity {
         val extractionResponse = featureExtractorClient.extractIris(
             FeatureExtractionRequest.newBuilder()
-                .setData(data)
+                .setData(requestDto.rawData)
                 .build()
         )
 
-        return ModalityEntity(
+        return IrisModalityEntity(
             criminalId = criminalId,
-            rawData = data,
-            type = ModalityType.IRIS,
+            rawData = requestDto.rawData,
             keypointsSize = extractionResponse.keypointsSize,
-            encodedDescriptor = extractionResponse.encodedDescriptor
+            encodedDescriptor = extractionResponse.encodedDescriptor,
+            position = requestDto.position
         )
     }
 }

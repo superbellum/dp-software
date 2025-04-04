@@ -1,7 +1,7 @@
 package sk.stuba.fei.api.msus.dp.criminalmanager.model.dto
 
-import sk.stuba.fei.api.msus.dp.criminalmanager.model.Address
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.CriminalEntity
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.entity.Address
 
 data class CriminalRequestDto(
     val firstName: String,
