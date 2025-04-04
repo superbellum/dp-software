@@ -27,7 +27,7 @@ services:
       test: mysql $MYSQL_DATABASE --user=$MYSQL_USER --password=$MYSQL_PASSWORD --silent --execute "SELECT 1;"
       interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
 
   feature-extractor:
     build: ./feature-extractor
