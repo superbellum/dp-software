@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.FingerPosition
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.ModalityType
-import sk.stuba.fei.api.msus.dp.criminalmanager.model.dto.FingerprintModalityResponseDto
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.payload.response.dto.FingerprintModalityResponseDto
 
 @Document(collection = "modality")
 data class FingerprintModalityEntity(

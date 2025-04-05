@@ -1,6 +1,6 @@
-package sk.stuba.fei.api.msus.dp.criminalmanager.model.dto
+package sk.stuba.fei.api.msus.dp.criminalmanager.model.payload.request.dto
 
-import sk.stuba.fei.api.msus.dp.criminalmanager.model.CriminalEntity
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.entity.CriminalEntity
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.entity.Address
 
 data class CriminalRequestDto(

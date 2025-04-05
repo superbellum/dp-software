@@ -1,14 +1,12 @@
-package sk.stuba.fei.api.msus.dp.criminalmanager.model.dto
+package sk.stuba.fei.api.msus.dp.criminalmanager.model.payload.request.dto
 
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.FingerPosition
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.ModalityType
 
-data class FingerprintModalityResponseDto(
-    override val id: String,
-    override var criminalId: String,
+data class FingerprintModalityRequestDto(
     override val rawData: String,
     val position: FingerPosition
-) : IModalityResponseDto {
+) : IModalityRequestDto {
     override val type: ModalityType
         get() = ModalityType.FINGERPRINT
 }

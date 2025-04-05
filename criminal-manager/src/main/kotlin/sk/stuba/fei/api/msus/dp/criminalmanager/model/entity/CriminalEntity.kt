@@ -1,9 +1,8 @@
-package sk.stuba.fei.api.msus.dp.criminalmanager.model
+package sk.stuba.fei.api.msus.dp.criminalmanager.model.entity
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
-import sk.stuba.fei.api.msus.dp.criminalmanager.model.dto.CriminalResponseDto
-import sk.stuba.fei.api.msus.dp.criminalmanager.model.entity.Address
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.payload.response.dto.CriminalResponseDto
 
 @Document("criminal")
 data class CriminalEntity(

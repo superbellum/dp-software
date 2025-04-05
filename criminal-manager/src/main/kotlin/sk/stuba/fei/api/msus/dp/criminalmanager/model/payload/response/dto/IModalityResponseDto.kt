@@ -1,4 +1,4 @@
-package sk.stuba.fei.api.msus.dp.criminalmanager.model.dto
+package sk.stuba.fei.api.msus.dp.criminalmanager.model.payload.response.dto
 
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.ModalityType
 

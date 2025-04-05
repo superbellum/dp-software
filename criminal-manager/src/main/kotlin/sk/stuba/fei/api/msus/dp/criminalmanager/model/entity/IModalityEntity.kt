@@ -2,7 +2,7 @@ package sk.stuba.fei.api.msus.dp.criminalmanager.model.entity
 
 import org.springframework.data.mongodb.core.mapping.Document
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.ModalityType
-import sk.stuba.fei.api.msus.dp.criminalmanager.model.dto.IModalityResponseDto
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.payload.response.dto.IModalityResponseDto
 
 @Document(collection = "modality")
 interface IModalityEntity {

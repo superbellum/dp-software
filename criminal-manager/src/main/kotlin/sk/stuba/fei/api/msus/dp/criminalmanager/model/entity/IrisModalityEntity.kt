@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.IrisPosition
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.ModalityType
-import sk.stuba.fei.api.msus.dp.criminalmanager.model.dto.IrisModalityResponseDto
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.payload.response.dto.IrisModalityResponseDto
 
 @Document(collection = "modality")
 data class IrisModalityEntity(

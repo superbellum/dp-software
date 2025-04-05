@@ -1,8 +1,8 @@
 package sk.stuba.fei.api.msus.dp.criminalmanager.controller
 
 import org.springframework.web.bind.annotation.*
-import sk.stuba.fei.api.msus.dp.criminalmanager.payload.request.AddModalitiesRequest
-import sk.stuba.fei.api.msus.dp.criminalmanager.payload.request.CreateCriminalRequest
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.payload.request.AddModalitiesRequest
+import sk.stuba.fei.api.msus.dp.criminalmanager.model.payload.request.CreateCriminalRequest
 import sk.stuba.fei.api.msus.dp.criminalmanager.service.CriminalService
 
 @CrossOrigin

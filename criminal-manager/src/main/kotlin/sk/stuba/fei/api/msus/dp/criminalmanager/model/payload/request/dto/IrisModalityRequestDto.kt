@@ -1,4 +1,4 @@
-package sk.stuba.fei.api.msus.dp.criminalmanager.model.dto
+package sk.stuba.fei.api.msus.dp.criminalmanager.model.payload.request.dto
 
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.IrisPosition
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.ModalityType
