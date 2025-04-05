@@ -1,8 +1,8 @@
 import grpc
 import os
 
-from matcher_pb2 import MatchRequest, MatchResponse
-from matcher_pb2_grpc import MatcherStub
+from proto.matcher_pb2 import MatchRequest, MatchResponse
+from proto.matcher_pb2_grpc import MatcherStub
 
 
 class MatcherClient:

@@ -3,7 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 import grpc
 import os
 
-from identificator_pb2_grpc import add_IdentificatorServicer_to_server
+from proto.identificator_pb2_grpc import add_IdentificatorServicer_to_server
 from identificator_service import IdentificatorService
 
 

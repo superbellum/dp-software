@@ -3,12 +3,12 @@ from bson.objectid import ObjectId
 import os
 
 from feature_extractor_client import FeatureExtractorClient
-from feature_extractor_pb2 import FeatureExtractionRequest, ExtractionResponse
-from identificator_pb2 import IdentificationResponse, VerificationResponse, Candidate, Criminal, Address, \
+from proto.feature_extractor_pb2 import FeatureExtractionRequest, ExtractionResponse
+from proto.identificator_pb2 import IdentificationResponse, VerificationResponse, Candidate, Criminal, Address, \
     IdentificationRequest, VerificationRequest
-from identificator_pb2_grpc import IdentificatorServicer
+from proto.identificator_pb2_grpc import IdentificatorServicer
 from matcher_client import MatcherClient
-from matcher_pb2 import MatchRequest, MatchTemplate
+from proto.matcher_pb2 import MatchRequest, MatchTemplate
 
 
 class IdentificatorService(IdentificatorServicer):
@@ -60,7 +60,7 @@ class IdentificatorService(IdentificatorServicer):
 
     def Identify(self, request: IdentificationRequest, context) -> IdentificationResponse:
         modality_type = request.modalityType
-        sample_data = request.data
+        sample_data = request.rawData
         match_score_threshold = request.identificationParameters.matchScoreThreshold
         candidate_count = request.identificationParameters.candidateCount
 
@@ -73,7 +73,7 @@ class IdentificatorService(IdentificatorServicer):
             encodedDescriptor=sample_modality_extraction_response.encodedDescriptor
         )
 
-        # query criminal biom. data (modalities) from db
+        # query criminal biometric data (modalities) from db
         criminal_modalities = list(self.mongo_client.dp_criminal.modality.find())
 
         if criminal_modalities is None or len(criminal_modalities) == 0:
@@ -105,7 +105,7 @@ class IdentificatorService(IdentificatorServicer):
 
     def Verify(self, request: VerificationRequest, context) -> VerificationResponse:
         modality_type = request.modalityType
-        sample_data = request.data
+        sample_data = request.rawData
         criminal_id = request.criminalId
         match_score_threshold = request.verificationParameters.matchScoreThreshold
 

@@ -1,8 +1,8 @@
 import grpc
 import os
 
-from feature_extractor_pb2 import FeatureExtractionRequest, ExtractionResponse
-from feature_extractor_pb2_grpc import FeatureExtractorStub
+from proto.feature_extractor_pb2 import FeatureExtractionRequest, ExtractionResponse
+from proto.feature_extractor_pb2_grpc import FeatureExtractorStub
 
 
 class FeatureExtractorClient:

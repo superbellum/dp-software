@@ -6,26 +6,26 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class IdentificationRequest(_message.Message):
-    __slots__ = ("modalityType", "data", "identificationParameters")
+    __slots__ = ("modalityType", "rawData", "identificationParameters")
     MODALITYTYPE_FIELD_NUMBER: _ClassVar[int]
-    DATA_FIELD_NUMBER: _ClassVar[int]
+    RAWDATA_FIELD_NUMBER: _ClassVar[int]
     IDENTIFICATIONPARAMETERS_FIELD_NUMBER: _ClassVar[int]
     modalityType: str
-    data: str
+    rawData: str
     identificationParameters: IdentificationParameters
-    def __init__(self, modalityType: _Optional[str] = ..., data: _Optional[str] = ..., identificationParameters: _Optional[_Union[IdentificationParameters, _Mapping]] = ...) -> None: ...
+    def __init__(self, modalityType: _Optional[str] = ..., rawData: _Optional[str] = ..., identificationParameters: _Optional[_Union[IdentificationParameters, _Mapping]] = ...) -> None: ...
 
 class VerificationRequest(_message.Message):
-    __slots__ = ("modalityType", "data", "criminalId", "verificationParameters")
+    __slots__ = ("modalityType", "rawData", "criminalId", "verificationParameters")
     MODALITYTYPE_FIELD_NUMBER: _ClassVar[int]
-    DATA_FIELD_NUMBER: _ClassVar[int]
+    RAWDATA_FIELD_NUMBER: _ClassVar[int]
     CRIMINALID_FIELD_NUMBER: _ClassVar[int]
     VERIFICATIONPARAMETERS_FIELD_NUMBER: _ClassVar[int]
     modalityType: str
-    data: str
+    rawData: str
     criminalId: str
     verificationParameters: VerificationParameters
-    def __init__(self, modalityType: _Optional[str] = ..., data: _Optional[str] = ..., criminalId: _Optional[str] = ..., verificationParameters: _Optional[_Union[VerificationParameters, _Mapping]] = ...) -> None: ...
+    def __init__(self, modalityType: _Optional[str] = ..., rawData: _Optional[str] = ..., criminalId: _Optional[str] = ..., verificationParameters: _Optional[_Union[VerificationParameters, _Mapping]] = ...) -> None: ...
 
 class IdentificationResponse(_message.Message):
     __slots__ = ("hitlist",)
