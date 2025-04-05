@@ -2,7 +2,7 @@ import grpc
 import os
 
 from concurrent.futures import ThreadPoolExecutor
-from feature_extractor_pb2_grpc import add_FeatureExtractorServicer_to_server
+from proto.feature_extractor_pb2_grpc import add_FeatureExtractorServicer_to_server
 from feature_extractor_service import FeatureExtractorService
 
 

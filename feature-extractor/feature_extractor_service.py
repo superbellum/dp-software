@@ -6,8 +6,8 @@ import cv2
 from PIL import Image
 from numpy import array
 
-from feature_extractor_pb2 import FeatureExtractionRequest, ExtractionResponse
-from feature_extractor_pb2_grpc import FeatureExtractorServicer
+from proto.feature_extractor_pb2 import FeatureExtractionRequest, ExtractionResponse
+from proto.feature_extractor_pb2_grpc import FeatureExtractorServicer
 from numpy_array_encoder import NumpyArrayEncoder
 
 
@@ -23,7 +23,7 @@ class FeatureExtractorService(FeatureExtractorServicer):
     def ExtractFingerprint(self, request: FeatureExtractionRequest, context) -> ExtractionResponse:
         print('extracting fingerprint')
 
-        data = request.data
+        data = request.rawData
         data_decoded = b64decode(data)
         raw_image = Image.open(BytesIO(data_decoded))
 
@@ -39,7 +39,7 @@ class FeatureExtractorService(FeatureExtractorServicer):
     def ExtractIris(self, request: FeatureExtractionRequest, context) -> ExtractionResponse:
         print('extracting iris')
 
-        data = request.data
+        data = request.rawData
         data_decoded = b64decode(data)
         raw_image = Image.open(BytesIO(data_decoded))
         raw_image = cv2.resize(array(raw_image), (64, 64))

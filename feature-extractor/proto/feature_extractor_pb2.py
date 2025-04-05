@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x66\x65\x61ture-extractor.proto\x12)sk.stuba.fei.api.msus.dp.featureextractor\"(\n\x18\x46\x65\x61tureExtractionRequest\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t\"F\n\x12\x45xtractionResponse\x12\x15\n\rkeypointsSize\x18\x01 \x01(\x05\x12\x19\n\x11\x65ncodedDescriptor\x18\x02 \x01(\t2\xc5\x02\n\x10\x46\x65\x61tureExtractor\x12\x9a\x01\n\x12\x45xtractFingerprint\x12\x43.sk.stuba.fei.api.msus.dp.featureextractor.FeatureExtractionRequest\x1a=.sk.stuba.fei.api.msus.dp.featureextractor.ExtractionResponse\"\x00\x12\x93\x01\n\x0b\x45xtractIris\x12\x43.sk.stuba.fei.api.msus.dp.featureextractor.FeatureExtractionRequest\x1a=.sk.stuba.fei.api.msus.dp.featureextractor.ExtractionResponse\"\x00\x42\x02P\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x66\x65\x61ture-extractor.proto\x12)sk.stuba.fei.api.msus.dp.featureextractor\"+\n\x18\x46\x65\x61tureExtractionRequest\x12\x0f\n\x07rawData\x18\x01 \x01(\t\"F\n\x12\x45xtractionResponse\x12\x15\n\rkeypointsSize\x18\x01 \x01(\x05\x12\x19\n\x11\x65ncodedDescriptor\x18\x02 \x01(\t2\xc5\x02\n\x10\x46\x65\x61tureExtractor\x12\x9a\x01\n\x12\x45xtractFingerprint\x12\x43.sk.stuba.fei.api.msus.dp.featureextractor.FeatureExtractionRequest\x1a=.sk.stuba.fei.api.msus.dp.featureextractor.ExtractionResponse\"\x00\x12\x93\x01\n\x0b\x45xtractIris\x12\x43.sk.stuba.fei.api.msus.dp.featureextractor.FeatureExtractionRequest\x1a=.sk.stuba.fei.api.msus.dp.featureextractor.ExtractionResponse\"\x00\x42\x02P\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,9 +33,9 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'P\001'
   _globals['_FEATUREEXTRACTIONREQUEST']._serialized_start=70
-  _globals['_FEATUREEXTRACTIONREQUEST']._serialized_end=110
-  _globals['_EXTRACTIONRESPONSE']._serialized_start=112
-  _globals['_EXTRACTIONRESPONSE']._serialized_end=182
-  _globals['_FEATUREEXTRACTOR']._serialized_start=185
-  _globals['_FEATUREEXTRACTOR']._serialized_end=510
+  _globals['_FEATUREEXTRACTIONREQUEST']._serialized_end=113
+  _globals['_EXTRACTIONRESPONSE']._serialized_start=115
+  _globals['_EXTRACTIONRESPONSE']._serialized_end=185
+  _globals['_FEATUREEXTRACTOR']._serialized_start=188
+  _globals['_FEATUREEXTRACTOR']._serialized_end=513
 # @@protoc_insertion_point(module_scope)
