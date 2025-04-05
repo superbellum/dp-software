@@ -44,8 +44,8 @@ class IdentificatorService(IdentificatorServicer):
             matchScore=match_score
         )
 
-    def _extract_features(self, data: str, modality_type: str) -> ExtractionResponse:
-        extraction_request = FeatureExtractionRequest(data=data)
+    def _extract_features(self, raw_data: str, modality_type: str) -> ExtractionResponse:
+        extraction_request = FeatureExtractionRequest(rawData=raw_data)
 
         if modality_type == "FINGERPRINT":
             return self.feature_extractor_client.extract_fingerprint(extraction_request)
@@ -64,7 +64,7 @@ class IdentificatorService(IdentificatorServicer):
         match_score_threshold = request.identificationParameters.matchScoreThreshold
         candidate_count = request.identificationParameters.candidateCount
 
-        sample_modality_extraction_response = self._extract_features(data=sample_data, modality_type=modality_type)
+        sample_modality_extraction_response = self._extract_features(raw_data=sample_data, modality_type=modality_type)
 
         hitlist = []
 
@@ -109,7 +109,7 @@ class IdentificatorService(IdentificatorServicer):
         criminal_id = request.criminalId
         match_score_threshold = request.verificationParameters.matchScoreThreshold
 
-        sample_modality_extraction_response = self._extract_features(data=sample_data, modality_type=modality_type)
+        sample_modality_extraction_response = self._extract_features(raw_data=sample_data, modality_type=modality_type)
 
         sample_match_template = MatchTemplate(
             keypointsSize=sample_modality_extraction_response.keypointsSize,

@@ -5,10 +5,10 @@ from typing import ClassVar as _ClassVar, Optional as _Optional
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class FeatureExtractionRequest(_message.Message):
-    __slots__ = ("data",)
-    DATA_FIELD_NUMBER: _ClassVar[int]
-    data: str
-    def __init__(self, data: _Optional[str] = ...) -> None: ...
+    __slots__ = ("rawData",)
+    RAWDATA_FIELD_NUMBER: _ClassVar[int]
+    rawData: str
+    def __init__(self, rawData: _Optional[str] = ...) -> None: ...
 
 class ExtractionResponse(_message.Message):
     __slots__ = ("keypointsSize", "encodedDescriptor")
