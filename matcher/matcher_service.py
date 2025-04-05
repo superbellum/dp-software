@@ -4,8 +4,8 @@ from json import loads
 import cv2
 import numpy as np
 
-from matcher_pb2 import MatchRequest, MatchResponse
-from matcher_pb2_grpc import MatcherServicer
+from proto.matcher_pb2 import MatchRequest, MatchResponse
+from proto.matcher_pb2_grpc import MatcherServicer
 
 
 class MatcherService(MatcherServicer):

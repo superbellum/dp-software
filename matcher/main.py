@@ -3,7 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 import grpc
 import os
 
-from matcher_pb2_grpc import add_MatcherServicer_to_server
+from proto.matcher_pb2_grpc import add_MatcherServicer_to_server
 from matcher_service import MatcherService
 
 
