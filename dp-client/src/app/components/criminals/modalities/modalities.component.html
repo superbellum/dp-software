@@ -1,15 +1,43 @@
-<button type="button" class="btn btn-secondary m-2" (click)="goBack()">Back</button>
-<button type="button" class="btn btn-success m-2" (click)="addNewModalityToCriminal()">Add New Modality</button>
-@if (!modalities() || modalities()?.length === 0) {
-  <span class="m-2">No modalities for the criminal ({{criminalId()}})</span>
+<!--todo loading spinner-->
+@if (false) {
+  <div class="text-center p-4">
+    <div class="spinner-border" style="width: 50px; height: 50px;" role="status">
+    </div>
+  </div>
 } @else {
+  <div class="p-3">
+    <button type="button" class="btn btn-secondary me-3" (click)="goBack()">
+      Return
+      <i class="bi bi-arrow-return-left ms-1"></i>
+    </button>
 
-  <button type="button" class="btn btn-danger m-2" (click)="deleteAllModalitiesForCriminal()">Delete All</button>
-  <span class="ms-2">Criminal ID: {{ criminalId() }}, number of modalities: {{modalities()?.length ?? 0}}</span>
+    <button type="button" class="btn btn-success me-3" (click)="addNewModalityToCriminal()">
+      Add New Modality
+      <i class="bi bi-plus-circle ms-1"></i>
+    </button>
 
-  <div class="container-fluid">
-    @for (modality of modalities(); track modality.id) {
-      <app-modality-card [modality]="modality" (onDeleteModality)="onDeletedModality($event)"/>
+    @if (!modalities() || modalities()?.length === 0) {
+
+      <div class="text-center mt-5">
+        <p class="m-0">No modalities for the criminal</p>
+        <i class="bi bi-file-earmark-x" style="font-size: 100px;"></i>
+      </div>
+
+    } @else {
+
+      <button type="button" class="btn btn-danger" (click)="deleteAllModalitiesForCriminal()">
+        Delete All
+        <i class="bi bi-trash3-fill ms-1"></i>
+      </button>
+
+      <span class="ms-4 fs-5"><i class="bi bi-back"></i> {{ modalities()?.length }}</span>
+
+      <!--      todo: grid layout like in criminals comp.-->
+      <div class="container-fluid">
+        @for (modality of modalities(); track modality.id) {
+          <app-modality-card [modality]="modality" (onDeleteModality)="onDeletedModality($event)"/>
+        }
+      </div>
     }
   </div>
 }

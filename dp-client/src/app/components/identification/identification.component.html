@@ -58,7 +58,7 @@
 
   <div class="col bg-light">
     <h5>Candidates:</h5>
-    @for (candidate of hitlist(); track candidate.criminal.id) {
+    @for (candidate of hitlist(); track $index) {
       <app-candidate-card [candidate]="candidate"/>
     }
   </div>

@@ -1,11 +1,37 @@
-<button type="button" class="btn btn-success m-2" (click)="createCriminal()">Create New Criminal</button>
-@if (!criminals() || criminals()?.length === 0) {
-  <span class="ms-2">No criminals in the database</span>
+@if (loading()) {
+  <div class="text-center p-4">
+    <div class="spinner-border" style="width: 50px; height: 50px;" role="status">
+    </div>
+  </div>
 } @else {
-  <span class="ms-2">Number of criminals: {{criminals()?.length ?? 0}}</span>
-  <div class="container-fluid">
-    @for (criminal of criminals(); track criminal.id) {
-      <app-criminal-card [criminal]="criminal" (onDeleteCriminal)="onDeletedCriminal($event)"/>
+  <div class="p-3">
+    <button type="button" class="btn btn-success" (click)="createCriminal()">
+      Create
+      <i class="bi bi-person-fill-add ms-1"></i>
+    </button>
+
+    @if (!criminals() || criminals()?.length === 0) {
+
+      <div class="text-center mt-5">
+        <p class="m-0">No criminals in the database</p>
+        <i class="bi bi-person-x" style="font-size: 100px;"></i>
+      </div>
+
+    } @else {
+
+      <span class="ms-4 fs-5"><i class="bi bi-people-fill"></i> {{ criminals()?.length }}</span>
+
+      <div class="container text-center">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+          @for (criminal of criminals(); track criminal.id) {
+            <div class="col mt-4">
+              <app-criminal-card [criminal]="criminal" (onDeleteCriminal)="onDeletedCriminal($event)"/>
+            </div>
+          }
+        </div>
+      </div>
     }
   </div>
 }
+
+

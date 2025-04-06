@@ -1,120 +1,135 @@
-<button type="button" class="btn btn-secondary m-2" (click)="goBack()">Back</button>
+<div class="p-3">
+  <button type="button" class="btn btn-secondary" (click)="goBack()">
+    Return
+    <i class="bi bi-arrow-return-left ms-1"></i>
+  </button>
 
-<div class="container mb-3">
-  <form (ngSubmit)="onSubmit()" #formRef="ngForm" class="needs-validation" novalidate>
-    <h4 class="mb-4">User Information</h4>
-    <div class="mb-3">
-      <label for="firstName" class="form-label">First Name:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="firstName"
-        name="firstName"
-        placeholder="Enter first name"
-        required
-        [(ngModel)]="firstName"
-      >
-    </div>
-    <div class="mb-3">
-      <label for="lastName" class="form-label">Last Name:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="lastName"
-        name="lastName"
-        placeholder="Enter last name"
-        required
-        [(ngModel)]="lastName"
-      >
-    </div>
-    <div class="mb-3">
-      <label for="phoneNumber" class="form-label">Phone Number:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="phoneNumber"
-        name="phoneNumber"
-        placeholder="Enter phone number"
-        required
-        [(ngModel)]="phoneNumber"
-      >
-    </div>
-    <div class="mb-3">
-      <label for="email" class="form-label">Email:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="email"
-        name="email"
-        placeholder="Enter email"
-        required
-        [(ngModel)]="email"
-      >
+  <form (ngSubmit)="onSubmit()"
+        #formRef="ngForm"
+        class="container mt-5 mb-3 col-lg-8 needs-validation"
+        novalidate
+  >
+    <div class="row g-xl-5 g-3">
+      <div class="col">
+        <h4 class="mb-4">User Information</h4>
+        <div class="mb-3">
+          <label for="firstName" class="form-label">First Name:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstName"
+            name="firstName"
+            placeholder="Enter first name"
+            required
+            [(ngModel)]="firstName"
+          >
+        </div>
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Last Name:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            name="lastName"
+            placeholder="Enter last name"
+            required
+            [(ngModel)]="lastName"
+          >
+        </div>
+        <div class="mb-3">
+          <label for="phoneNumber" class="form-label">Phone Number:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="phoneNumber"
+            name="phoneNumber"
+            placeholder="Enter phone number"
+            required
+            [(ngModel)]="phoneNumber"
+          >
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="Enter email"
+            required
+            [(ngModel)]="email"
+          >
+        </div>
+      </div>
+      <div class="col">
+        <h4 class="mb-4">Address</h4>
+        <div class="mb-3">
+          <label for="country" class="form-label">Country:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="country"
+            name="country"
+            placeholder="Enter country"
+            required
+            [(ngModel)]="country"
+          >
+        </div>
+        <div class="mb-3">
+          <label for="city" class="form-label">City:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="city"
+            name="city"
+            placeholder="Enter city"
+            required
+            [(ngModel)]="city"
+          >
+        </div>
+        <div class="mb-3">
+          <label for="postCode" class="form-label">Post Code:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="postCode"
+            name="postCode"
+            placeholder="Enter post code"
+            required
+            [(ngModel)]="postCode"
+          >
+        </div>
+        <div class="mb-3">
+          <label for="streetName" class="form-label">Street Name:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="streetName"
+            name="streetName"
+            placeholder="Enter street name"
+            required
+            [(ngModel)]="street"
+          >
+        </div>
+        <div class="mb-3">
+          <label for="streetNumber" class="form-label">Street Number:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="streetNumber"
+            name="streetNumber"
+            placeholder="Enter street number"
+            required
+            [(ngModel)]="streetNumber"
+          >
+        </div>
+      </div>
     </div>
 
-    <h4 class="mb-4">Address</h4>
-    <div class="mb-3">
-      <label for="country" class="form-label">Country:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="country"
-        name="country"
-        placeholder="Enter country"
-        required
-        [(ngModel)]="country"
-      >
-    </div>
-    <div class="mb-3">
-      <label for="city" class="form-label">City:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="city"
-        name="city"
-        placeholder="Enter city"
-        required
-        [(ngModel)]="city"
-      >
-    </div>
-    <div class="mb-3">
-      <label for="postCode" class="form-label">Post Code:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="postCode"
-        name="postCode"
-        placeholder="Enter post code"
-        required
-        [(ngModel)]="postCode"
-      >
-    </div>
-    <div class="mb-3">
-      <label for="streetName" class="form-label">Street Name:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="streetName"
-        name="streetName"
-        placeholder="Enter street name"
-        required
-        [(ngModel)]="street"
-      >
-    </div>
-    <div class="mb-3">
-      <label for="streetNumber" class="form-label">Street Number:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="streetNumber"
-        name="streetNumber"
-        placeholder="Enter street number"
-        required
-        [(ngModel)]="streetNumber"
-      >
-    </div>
-
-    <button type="submit" class="btn btn-primary" [disabled]="formRef.invalid">Submit</button>
-    <span class="ms-2" style="color: red" [class.d-none]="!formRef.invalid">All field must be non-empty!</span>
+    <button type="submit" class="btn btn-primary" [disabled]="formRef.invalid">
+      Submit
+      <i class="bi bi-floppy-fill ms-1"></i>
+    </button>
+    <span class="ms-2" style="color: red" [class.d-none]="!formRef.invalid">All fields must be filled!</span>
   </form>
 </div>

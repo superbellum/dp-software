@@ -45,10 +45,7 @@ export class CreateCriminalComponent {
       phoneNumber: this.phoneNumber()
     };
     this.criminalService.createCriminal(newCriminal).subscribe({
-      next: (resp) => {
-        console.log(resp);
-        this.location.back();
-      },
+      next: () => this.location.back(),
       error: (err) => console.error(err)
     });
   }

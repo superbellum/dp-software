@@ -1,13 +1,18 @@
-<button type="button" class="btn btn-secondary m-2" (click)="goBack()">Back</button>
+<div class="p-3">
+  <button type="button" class="btn btn-secondary" (click)="goBack()">
+    Return
+    <i class="bi bi-arrow-return-left ms-1"></i>
+  </button>
 
-<div class="container mb-3 mt-3">
-  <form (ngSubmit)="onSubmit()" novalidate>
-    <div class="dropdown mb-3">
-      <div class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
+  <form (ngSubmit)="onSubmit()" class="container mt-5" novalidate>
+
+    <div class="dropdown mb-3 me-3 d-inline-block">
+      <div class="btn btn-outline-dark dropdown-toggle" id="dropdownMenuModalityType" data-bs-toggle="dropdown"
            aria-expanded="false">
         {{ modalityType() ?? "Select Modality Type" }}
       </div>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuModalityType">
         <li>
           <a class="dropdown-item" style="cursor: pointer" (click)="modalityType.set('FINGERPRINT')">
             <i class="bi-fingerprint"></i> FINGERPRINT
@@ -21,10 +26,33 @@
       </ul>
     </div>
 
+    @if (modalityType()) {
+      <div class="dropdown mb-3 d-inline-block">
+        <div class="btn btn-outline-dark dropdown-toggle" id="dropdownMenuModalityPosition" data-bs-toggle="dropdown"
+             aria-expanded="false">
+          {{ modalityPosition() ?? "Select Modality Position" }}
+        </div>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuModalityPosition">
+          @for (position of modalityPositions(); track $index) {
+            <li>
+              <a class="dropdown-item" style="cursor: pointer" (click)="modalityPosition.set(position)">
+                {{ position }}
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+
     <div class="mb-3">
       <input type="file" class="form-control" (change)="onFileSelected($event)">
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">
+      Submit
+      <i class="bi bi-floppy-fill ms-1"></i>
+    </button>
+
   </form>
 </div>

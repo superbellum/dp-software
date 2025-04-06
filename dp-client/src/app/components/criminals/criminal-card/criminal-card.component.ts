@@ -23,10 +23,13 @@ export class CriminalCardComponent {
   deleteCriminalById() {
     this.criminalService.deleteCriminalById(this.criminal().id).subscribe({
       next: (res) => {
-        console.log(res.message);
         this.onDeleteCriminal.emit(this.criminal().id);
       },
       error: (err) => console.error(err)
     });
+  }
+
+  copyCriminalId() {
+    navigator.clipboard.writeText(this.criminal().id);
   }
 }

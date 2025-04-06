@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {Component, effect, inject, OnInit, signal} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CriminalService} from '../../../../services/criminal.service';
 import {ActivatedRoute} from '@angular/router';
@@ -14,9 +14,25 @@ import {Location} from '@angular/common';
   templateUrl: './create-modality.component.html',
   styleUrl: './create-modality.component.css'
 })
+
 export class CreateModalityComponent implements OnInit {
+  modalityPositions = signal<string[]>([]);
+
+  g = effect(() => {
+    this.modalityPosition.set(null);
+    if (this.modalityType() === "FINGERPRINT") {
+      this.modalityPositions.set(["RIGHT_THUMB", "RIGHT_INDEX", "RIGHT_MIDDLE", "RIGHT_RING", "RIGHT_LITTLE",
+        "LEFT_THUMB", "LEFT_INDEX", "LEFT_MIDDLE", "LEFT_RING", "LEFT_LITTLE"]);
+    } else if (this.modalityType() === "IRIS") {
+      this.modalityPositions.set(["LEFT", "RIGHT"]);
+    } else {
+      this.modalityPositions.set([]);
+    }
+  })
+
   criminalId = signal<string | null>(null);
   modalityType = signal<string | null>(null);
+  modalityPosition = signal<string | null>(null);
   modalityData = signal<string | null>(null);
 
   private criminalService = inject(CriminalService);
@@ -39,6 +55,7 @@ export class CreateModalityComponent implements OnInit {
         data: this.modalityData()!
       }
 
+      // todo: finish
       this.criminalService.addModalitiesToCriminal(this.criminalId()!, {modalities: [addModality]}).subscribe({
         next: (res) => {
           this.location.back();

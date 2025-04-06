@@ -13,7 +13,8 @@ import {Router} from '@angular/router';
   styleUrl: './criminals.component.css'
 })
 export class CriminalsComponent implements OnInit {
-  criminals = signal<Criminal[] | undefined>(undefined)
+  criminals = signal<Criminal[] | undefined>(undefined);
+  loading = signal(true);
 
   private criminalService = inject(CriminalService);
   private router = inject(Router);
@@ -21,7 +22,10 @@ export class CriminalsComponent implements OnInit {
   ngOnInit(): void {
     this.criminalService
       .getAllCriminals()
-      .subscribe(data => this.criminals.set(data.criminals));
+      .subscribe(data => {
+        this.criminals.set(data.criminals);
+        this.loading.set(false);
+      });
   }
 
   createCriminal() {
