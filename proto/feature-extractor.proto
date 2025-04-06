@@ -12,7 +12,7 @@ service FeatureExtractor {
 }
 
 message FeatureExtractionRequest {
-  string data = 1;
+  string rawData = 1;
 }
 
 message ExtractionResponse {

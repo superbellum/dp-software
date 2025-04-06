@@ -13,13 +13,13 @@ service Identificator {
 
 message IdentificationRequest {
   string modalityType = 1;
-  string data = 2;
+  string rawData = 2;
   IdentificationParameters identificationParameters = 3;
 }
 
 message VerificationRequest {
   string modalityType = 1;
-  string data = 2;
+  string rawData = 2;
   string criminalId = 3;
   VerificationParameters verificationParameters = 4;
 }
