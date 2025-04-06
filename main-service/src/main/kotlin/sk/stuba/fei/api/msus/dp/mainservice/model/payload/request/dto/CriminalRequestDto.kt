@@ -1,8 +1,8 @@
-package sk.stuba.fei.api.msus.dp.mainservice.model.payload.request
+package sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.dto
 
 import sk.stuba.fei.api.msus.dp.mainservice.model.Address
 
-data class CriminalRequest(
+data class CriminalRequestDto(
     val firstName: String,
     val lastName: String,
     val phoneNumber: String? = "",

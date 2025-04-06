@@ -1,12 +1,14 @@
-package sk.stuba.fei.api.msus.dp.mainservice.model.payload.request
+package sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.dto
 
 import sk.stuba.fei.api.msus.dp.mainservice.model.IrisPosition
 import sk.stuba.fei.api.msus.dp.mainservice.model.ModalityType
 
-data class IrisModalityRequestDto(
+data class IrisModalityResponseDto(
+    override val id: String,
+    override var criminalId: String,
     override val rawData: String,
     val position: IrisPosition
-) : IModalityRequestDto {
+) : IModalityResponseDto {
     override val type: ModalityType
         get() = ModalityType.IRIS
 }

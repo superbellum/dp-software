@@ -1,4 +1,4 @@
-package sk.stuba.fei.api.msus.dp.mainservice.model.payload.response
+package sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.dto
 
 import sk.stuba.fei.api.msus.dp.mainservice.model.ModalityType
 

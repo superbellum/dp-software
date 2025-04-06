@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam
 import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.AddModalitiesRequest
 import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.CriminalEnrollRequest
 import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.GetAllCriminalsResponse
-import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.GetCriminalModalitiesResponse
 import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.GetCriminalResponse
 import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.MessageResponse
 
@@ -37,7 +36,7 @@ interface CriminalManagerClient {
     fun deleteAll(): ResponseEntity<MessageResponse>
 
     @GetMapping("{criminalId}/modalities")
-    fun getModalitiesForCriminal(@PathVariable criminalId: String): ResponseEntity<GetCriminalModalitiesResponse>
+    fun getModalitiesForCriminal(@PathVariable criminalId: String): ResponseEntity<out Any>
 
     @PostMapping("{criminalId}/modalities")
     fun addModalitiesForCriminal(

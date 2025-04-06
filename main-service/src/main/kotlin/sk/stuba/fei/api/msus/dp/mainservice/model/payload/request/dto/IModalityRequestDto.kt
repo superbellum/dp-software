@@ -1,4 +1,4 @@
-package sk.stuba.fei.api.msus.dp.mainservice.model.payload.request
+package sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.dto
 
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo

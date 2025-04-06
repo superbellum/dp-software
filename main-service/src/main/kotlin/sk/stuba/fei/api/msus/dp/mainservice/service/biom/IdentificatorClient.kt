@@ -38,7 +38,7 @@ class IdentificatorClient(private val configuration: IdentificatorClientConfigur
 
         val grpcIdentificationRequest = GrpcIdentificationRequest.newBuilder()
             .setModalityType(identificationRequest.modality.type.toString())
-            .setData(identificationRequest.modality.rawData)
+            .setRawData(identificationRequest.modality.rawData)
             .setIdentificationParameters(grpcIdentificationParams)
             .build()
 
@@ -55,7 +55,7 @@ class IdentificatorClient(private val configuration: IdentificatorClientConfigur
 
         val grpcVerificationRequest = GrpcVerificationRequest.newBuilder()
             .setModalityType(verificationRequest.modality.type.toString())
-            .setData(verificationRequest.modality.rawData)
+            .setRawData(verificationRequest.modality.rawData)
             .setCriminalId(verificationRequest.criminalId)
             .setVerificationParameters(grpcVerificationParams)
             .build()

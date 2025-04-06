@@ -1,6 +1,10 @@
 package sk.stuba.fei.api.msus.dp.mainservice.controller
 
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -12,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.AddModalitiesRequest
 import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.CriminalEnrollRequest
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.CriminalResponse
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.GetCriminalModalitiesResponse
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.MessageResponse
 import sk.stuba.fei.api.msus.dp.mainservice.service.crim.CriminalManagerClient
 
 @CrossOrigin
@@ -32,6 +39,20 @@ class CriminalController(private val criminalManagerClient: CriminalManagerClien
 
     @PostMapping
     @Operation(summary = "Enroll new criminal with or without biometric data")
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                description = "Returns the enrolled criminal without modalities",
+                content = [Content(schema = Schema(implementation = CriminalResponse::class))]
+            ),
+            ApiResponse(
+                responseCode = "400",
+                description = "Returns a message about the error occurred",
+                content = [Content(schema = Schema(implementation = MessageResponse::class))]
+            )
+        ]
+    )
     fun enroll(@RequestBody criminalEnrollRequest: CriminalEnrollRequest) =
         criminalManagerClient.enroll(criminalEnrollRequest)
 
@@ -45,6 +66,20 @@ class CriminalController(private val criminalManagerClient: CriminalManagerClien
 
     @GetMapping("{criminalId}/modalities")
     @Operation(summary = "Get all modalities for criminal specified by ID")
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                description = "Returns a list of modalities for the criminal",
+                content = [Content(schema = Schema(implementation = GetCriminalModalitiesResponse::class))]
+            ),
+            ApiResponse(
+                responseCode = "400",
+                description = "Returns a message about the error occurred",
+                content = [Content(schema = Schema(implementation = MessageResponse::class))]
+            )
+        ]
+    )
     fun getModalitiesForCriminal(@PathVariable criminalId: String) =
         criminalManagerClient.getModalitiesForCriminal(criminalId)
 
@@ -53,8 +88,7 @@ class CriminalController(private val criminalManagerClient: CriminalManagerClien
     fun addModalitiesForCriminal(
         @PathVariable criminalId: String,
         @RequestBody modalitiesRequest: AddModalitiesRequest
-    ) =
-        criminalManagerClient.addModalitiesForCriminal(criminalId, modalitiesRequest)
+    ) = criminalManagerClient.addModalitiesForCriminal(criminalId, modalitiesRequest)
 
     @DeleteMapping("{criminalId}/modalities")
     @Operation(summary = "Remove all modalities for criminal specified by ID")
@@ -64,4 +98,9 @@ class CriminalController(private val criminalManagerClient: CriminalManagerClien
     @DeleteMapping("{criminalId}/modalities/{modalityId}")
     fun removeModalityOfCriminal(@PathVariable criminalId: String, @PathVariable modalityId: String) =
         criminalManagerClient.removeModalityOfCriminal(criminalId, modalityId)
+
+    @GetMapping("dummy")
+    fun dummy(): GetCriminalModalitiesResponse {
+        return GetCriminalModalitiesResponse("")
+    }
 }
