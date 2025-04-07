@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
   mongodb:
-    image: mongo
+    image: mongo:latest
     container_name: mongodb
     restart: always
     ports:
@@ -30,7 +30,10 @@ services:
       retries: 10
 
   feature-extractor:
-    build: ./feature-extractor
+    build:
+      context: ./feature-extractor
+      dockerfile: Dockerfile
+    image: gughpatrik/feature-extractor:latest
     container_name: feature-extractor
     restart: always
     ports:
@@ -39,7 +42,10 @@ services:
       - ./.env
 
   matcher:
-    build: ./matcher
+    build:
+      context: ./matcher
+      dockerfile: Dockerfile
+    image: gughpatrik/matcher:latest
     container_name: matcher
     restart: always
     ports:
@@ -48,7 +54,10 @@ services:
       - ./.env
 
   identificator:
-    build: ./identificator
+    build:
+      context: ./identificator
+      dockerfile: Dockerfile
+    image: gughpatrik/identificator:latest
     container_name: identificator
     restart: always
     ports:
@@ -57,7 +66,10 @@ services:
       - ./.env
 
   criminal-manager:
-    build: ./criminal-manager
+    build:
+      context: ./criminal-manager
+      dockerfile: Dockerfile
+    image: gughpatrik/criminal-manager:latest
     container_name: criminal-manager
     restart: on-failure
     depends_on:
@@ -71,7 +83,10 @@ services:
       - ./.env
 
   main-service:
-    build: ./main-service
+    build:
+      context: ./main-service
+      dockerfile: Dockerfile
+    image: gughpatrik/main-service:latest
     container_name: main-service
     restart: on-failure
     depends_on:
