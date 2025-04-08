@@ -1,9 +1,9 @@
-package sk.stuba.fei.api.msus.dp.mainservice.model.payload.response
+package sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.dto
 
 import sk.stuba.fei.api.msus.dp.identificator.Criminal
 import sk.stuba.fei.api.msus.dp.mainservice.model.Address
 
-data class CriminalResponse(
+data class CriminalResponseDto(
     val id: String,
     val firstName: String,
     val lastName: String,
@@ -12,7 +12,7 @@ data class CriminalResponse(
     val address: Address
 ) {
     companion object {
-        fun fromGrpcCriminal(criminal: Criminal) = CriminalResponse(
+        fun fromGrpcCriminal(criminal: Criminal) = CriminalResponseDto(
             id = criminal.id,
             firstName = criminal.firstName,
             lastName = criminal.lastName,

@@ -1,8 +1,8 @@
 package sk.stuba.fei.api.msus.dp.mainservice.model
 
-import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.CriminalResponse
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.dto.CriminalResponseDto
 
 data class CriminalCandidate(
-    val criminal: CriminalResponse,
+    val criminal: CriminalResponseDto,
     val matchScore: Float
 )

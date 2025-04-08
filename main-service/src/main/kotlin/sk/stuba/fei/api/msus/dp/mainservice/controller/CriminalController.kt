@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.AddModalitiesRequest
 import sk.stuba.fei.api.msus.dp.mainservice.model.payload.request.CriminalEnrollRequest
-import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.CriminalResponse
+import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.dto.CriminalResponseDto
 import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.GetCriminalModalitiesResponse
 import sk.stuba.fei.api.msus.dp.mainservice.model.payload.response.MessageResponse
 import sk.stuba.fei.api.msus.dp.mainservice.service.crim.CriminalManagerClient
@@ -44,7 +44,7 @@ class CriminalController(private val criminalManagerClient: CriminalManagerClien
             ApiResponse(
                 responseCode = "200",
                 description = "Returns the enrolled criminal without modalities",
-                content = [Content(schema = Schema(implementation = CriminalResponse::class))]
+                content = [Content(schema = Schema(implementation = CriminalResponseDto::class))]
             ),
             ApiResponse(
                 responseCode = "400",
