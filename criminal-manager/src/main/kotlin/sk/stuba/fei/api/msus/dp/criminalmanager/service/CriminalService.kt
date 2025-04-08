@@ -27,6 +27,7 @@ class CriminalService(
     private val modalityRepository: ModalityRepository,
     private val featureExtractorClient: FeatureExtractorClient
 ) {
+    // todo: test in postman
     fun getCriminalById(id: String, withModalities: Boolean): ResponseEntity<GetCriminalResponse> {
         val criminal = criminalRepository.findById(id)
 
