@@ -9,14 +9,32 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" routerLink="/" [class.active]="activeNavTab() === 'criminals'"
-           (click)="setActiveNavTab('criminals')">Criminals
+        <a
+          class="nav-link me-2"
+          routerLink="/"
+          [class.active]="activeNavTab() === 'criminals'"
+          (click)="setActiveNavTab('criminals')"
+        >
+          <i class="bi bi-people me-1"></i>
+          Criminals
         </a>
-        <a class="nav-link" routerLink="identification" [class.active]="activeNavTab() === 'identification'"
-           (click)="setActiveNavTab('identification')">Identification
+        <a
+          class="nav-link me-2"
+          routerLink="identification"
+          [class.active]="activeNavTab() === 'identification'"
+          (click)="setActiveNavTab('identification')"
+        >
+          <i class="bi bi-search me-1"></i>
+          Identification
         </a>
-        <a class="nav-link" routerLink="verification" [class.active]="activeNavTab() === 'verification'"
-           (click)="setActiveNavTab('verification')">Verification
+        <a
+          class="nav-link"
+          routerLink="verification"
+          [class.active]="activeNavTab() === 'verification'"
+          (click)="setActiveNavTab('verification')"
+        >
+          <i class="bi bi-person-check me-1"></i>
+          Verification
         </a>
       </div>
     </div>

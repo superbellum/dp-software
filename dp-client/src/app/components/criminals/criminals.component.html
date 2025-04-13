@@ -5,20 +5,19 @@
   </div>
 } @else {
   <div class="p-3">
-    <button type="button" class="btn btn-light" (click)="fetchCriminals()" tooltip="Refresh">
+    <button type="button" class="btn btn-light" (click)="fetchCriminals()">
       <i class="bi bi-arrow-clockwise"></i>
     </button>
 
     <button type="button" class="btn btn-success ms-2" (click)="createCriminal()">
-      Create
-      <i class="bi bi-person-fill-add ms-1"></i>
+      <i class="bi bi-person-fill-add"></i>
     </button>
 
     @if (!criminals() || criminals()?.length === 0) {
 
       <div class="text-center mt-5">
-        <p class="m-0">No criminals in the database</p>
-        <i class="bi bi-person-x" style="font-size: 100px;"></i>
+        <p class="m-0">No criminals in the system</p>
+        <i class="bi bi-person-slash" style="font-size: 100px;"></i>
       </div>
 
     } @else {

@@ -1,0 +1,27 @@
+.responsive-box {
+  width: 100%;
+}
+
+@media (min-width: 1500px) {
+  .responsive-box {
+    width: 25%;
+  }
+}
+
+@media (min-width: 1000px) and (max-width: 1500px) {
+  .responsive-box {
+    width: 40%;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 1000px) {
+  .responsive-box {
+    width: 50%;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 700px) {
+  .responsive-box {
+    width: 80%;
+  }
+}

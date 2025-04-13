@@ -1,7 +1,6 @@
 <div class="p-3">
   <button type="button" class="btn btn-secondary" (click)="goBack()">
-    Return
-    <i class="bi bi-arrow-return-left ms-1"></i>
+    <i class="bi bi-arrow-return-left"></i>
   </button>
 
   <form (ngSubmit)="onSubmit()"
@@ -11,7 +10,10 @@
   >
     <div class="row g-xl-5 g-3">
       <div class="col">
-        <h4 class="mb-4">User Information</h4>
+        <h4 class="mb-4">
+          <i class="bi bi-person-lines-fill me-2"></i>
+          Personal Data
+        </h4>
         <div class="mb-3">
           <label for="firstName" class="form-label">First Name:</label>
           <input
@@ -62,7 +64,10 @@
         </div>
       </div>
       <div class="col">
-        <h4 class="mb-4">Address</h4>
+        <h4 class="mb-4">
+          <i class="bi bi-house-fill me-2"></i>
+          Address
+        </h4>
         <div class="mb-3">
           <label for="country" class="form-label">Country:</label>
           <input
@@ -127,8 +132,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary" [disabled]="formRef.invalid">
-      Submit
-      <i class="bi bi-floppy-fill ms-1"></i>
+      Save
     </button>
     <span class="ms-2" style="color: red" [class.d-none]="!formRef.invalid">All fields must be filled!</span>
   </form>

@@ -5,11 +5,11 @@
   </div>
 } @else {
   <div class="p-3">
-    <button type="button" class="btn btn-secondary" (click)="goBack()" tooltip="Return">
+    <button type="button" class="btn btn-secondary" (click)="goBack()">
       <i class="bi bi-arrow-return-left"></i>
     </button>
 
-    <button type="button" class="btn btn-light ms-2" (click)="fetchCriminalModalities()" tooltip="Refresh">
+    <button type="button" class="btn btn-light ms-2" (click)="fetchCriminalModalities()">
       <i class="bi bi-arrow-clockwise"></i>
     </button>
 
@@ -21,7 +21,7 @@
     @if (!modalities() || modalities()?.length === 0) {
 
       <div class="text-center mt-5">
-        <p class="m-0">No modalities for the criminal</p>
+        <p class="m-0">The criminal has no modalities</p>
         <i class="bi bi-file-earmark-x" style="font-size: 100px;"></i>
       </div>
 
