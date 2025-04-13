@@ -1,12 +1,14 @@
 package sk.stuba.fei.api.msus.dp.criminalmanager.model.entity
 
 import org.springframework.data.annotation.Id
+import org.springframework.data.annotation.TypeAlias
 import org.springframework.data.mongodb.core.mapping.Document
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.FingerPosition
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.ModalityType
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.payload.response.dto.FingerprintModalityResponseDto
 
 @Document(collection = "modality")
+@TypeAlias("FINGERPRINT")
 data class FingerprintModalityEntity(
     @Id
     override var id: String? = null,

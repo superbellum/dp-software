@@ -9,6 +9,5 @@ data class IrisModalityResponseDto(
     override val rawData: String,
     val position: IrisPosition
 ) : IModalityResponseDto {
-    override val type: ModalityType
-        get() = ModalityType.IRIS
+    override val type = ModalityType.IRIS
 }

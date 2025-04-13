@@ -18,7 +18,7 @@ class MatcherService(MatcherServicer):
         return loads(b64decode(data.encode()).decode())
 
     def MatchFingerprints(self, request: MatchRequest, context) -> MatchResponse:
-        print("matching fingerprints")
+        print("matching fingerprints...")
 
         sample_fingerprint_template = request.sampleTemplate
         real_fingerprint_template = request.realTemplate
@@ -45,10 +45,12 @@ class MatcherService(MatcherServicer):
         # calculate match score
         match_score = len(match_points) / keypoints_count * 100
 
+        print(f'matched fingerprints. match score: {match_score}')
+
         return MatchResponse(matchScore=match_score)
 
     def MatchIrises(self, request: MatchRequest, context) -> MatchResponse:
-        print("matching irises")
+        print("matching irises...")
 
         sample_iris_template = request.sampleTemplate
         real_iris_template = request.realTemplate
@@ -70,5 +72,7 @@ class MatcherService(MatcherServicer):
 
         # calculate match score
         match_score = len(good_matches) / keypoints_count * 100
+
+        print(f'matched irises. match score: {match_score}')
 
         return MatchResponse(matchScore=match_score)

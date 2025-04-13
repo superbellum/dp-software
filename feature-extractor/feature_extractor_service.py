@@ -21,7 +21,7 @@ class FeatureExtractorService(FeatureExtractorServicer):
         return b64encode(dumps(obj, cls=NumpyArrayEncoder).encode()).decode()
 
     def ExtractFingerprint(self, request: FeatureExtractionRequest, context) -> ExtractionResponse:
-        print('extracting fingerprint')
+        print('extracting fingerprint...')
 
         data = request.rawData
         data_decoded = b64decode(data)
@@ -31,13 +31,15 @@ class FeatureExtractorService(FeatureExtractorServicer):
         sift = cv2.SIFT_create()
         keypoints, descriptors = sift.detectAndCompute(fingerprint_image, None)
 
+        print(f'extracted fingerprint. keypoints len: {len(keypoints)}, descriptors len: {len(descriptors)}')
+
         return ExtractionResponse(
             keypointsSize=len(keypoints),
             encodedDescriptor=self._encode_numpy_array(descriptors)
         )
 
     def ExtractIris(self, request: FeatureExtractionRequest, context) -> ExtractionResponse:
-        print('extracting iris')
+        print('extracting iris...')
 
         data = request.rawData
         data_decoded = b64decode(data)
@@ -46,6 +48,8 @@ class FeatureExtractorService(FeatureExtractorServicer):
 
         sift = cv2.SIFT_create()
         keypoints, descriptors = sift.detectAndCompute(raw_image, None)
+
+        print(f'extracted iris. keypoints len: {len(keypoints)}, descriptors len: {len(descriptors)}')
 
         return ExtractionResponse(
             keypointsSize=len(keypoints),

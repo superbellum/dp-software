@@ -74,12 +74,12 @@ class IdentificatorService(IdentificatorServicer):
         )
 
         # query criminal biometric data (modalities) from db
-        criminal_modalities = list(self.mongo_client.dp_criminal.modality.find())
+        modalities = list(self.mongo_client.dp_criminal.modality.find({'_class': modality_type}))
 
-        if criminal_modalities is None or len(criminal_modalities) == 0:
+        if modalities is None or len(modalities) == 0:
             return IdentificationResponse(hitlist=[])
 
-        for modality in criminal_modalities:
+        for modality in modalities:
             match_request = MatchRequest(
                 sampleTemplate=sample_match_template,
                 realTemplate=MatchTemplate(
@@ -88,7 +88,7 @@ class IdentificatorService(IdentificatorServicer):
                 )
             )
 
-            match_score = self._match_modality(match_request=match_request, modality_type=modality["type"])
+            match_score = self._match_modality(match_request=match_request, modality_type=modality_type)
 
             if match_score_threshold <= match_score <= 100.0:
                 criminal = self._get_criminal_from_db(criminal_id=modality["criminalId"])
@@ -117,7 +117,9 @@ class IdentificatorService(IdentificatorServicer):
         )
 
         # find modalities by criminalId
-        criminal_modalities = list(self.mongo_client.dp_criminal.modality.find({'criminalId': criminal_id}))
+        criminal_modalities = list(
+            self.mongo_client.dp_criminal.modality.find({'criminalId': criminal_id, '_class': modality_type})
+        )
 
         if criminal_modalities is None or len(criminal_modalities) == 0:
             return VerificationResponse(verified=False, matchScore=0.0)
@@ -131,7 +133,7 @@ class IdentificatorService(IdentificatorServicer):
                 )
             )
 
-            match_score = self._match_modality(match_request=match_request, modality_type=modality["type"])
+            match_score = self._match_modality(match_request=match_request, modality_type=modality_type)
 
             if match_score_threshold <= match_score <= 100.0:
                 return VerificationResponse(verified=True, matchScore=match_score)

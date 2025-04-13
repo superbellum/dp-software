@@ -1,12 +1,14 @@
 package sk.stuba.fei.api.msus.dp.criminalmanager.model.entity
 
 import org.springframework.data.annotation.Id
+import org.springframework.data.annotation.TypeAlias
 import org.springframework.data.mongodb.core.mapping.Document
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.IrisPosition
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.ModalityType
 import sk.stuba.fei.api.msus.dp.criminalmanager.model.payload.response.dto.IrisModalityResponseDto
 
 @Document(collection = "modality")
+@TypeAlias("IRIS")
 data class IrisModalityEntity(
     @Id
     override var id: String? = null,

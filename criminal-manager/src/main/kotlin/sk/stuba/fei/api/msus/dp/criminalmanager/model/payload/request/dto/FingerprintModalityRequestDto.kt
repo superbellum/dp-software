@@ -7,6 +7,5 @@ data class FingerprintModalityRequestDto(
     override val rawData: String,
     val position: FingerPosition
 ) : IModalityRequestDto {
-    override val type: ModalityType
-        get() = ModalityType.FINGERPRINT
+    override val type = ModalityType.FINGERPRINT
 }
