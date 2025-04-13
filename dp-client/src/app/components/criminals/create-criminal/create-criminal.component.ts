@@ -1,8 +1,10 @@
 import {Component, inject, signal} from '@angular/core';
 import {CriminalService} from '../../../services/criminal.service';
 import {FormsModule} from '@angular/forms';
-import {NewCriminal} from '../../../model/new-criminal.model';
 import {Location} from '@angular/common';
+import {CriminalResponseDto} from '../../../model/payload/response/dto/criminal-response-dto';
+import {CriminalEnrollRequest} from '../../../model/payload/request/criminal-enroll-request';
+import {NotificationService} from '../../../services/notification.service';
 
 @Component({
   selector: 'app-create-criminal',
@@ -24,6 +26,7 @@ export class CreateCriminalComponent {
   phoneNumber = signal('');
 
   private criminalService = inject(CriminalService);
+  private notificationService = inject(NotificationService);
   private location = inject(Location);
 
   goBack() {
@@ -31,22 +34,33 @@ export class CreateCriminalComponent {
   }
 
   onSubmit() {
-    const newCriminal: NewCriminal = {
-      address: {
-        city: this.city(),
-        country: this.country(),
-        postCode: this.postCode(),
-        street: this.street(),
-        streetNumber: this.streetNumber()
+    const criminalEnrollRequest: CriminalEnrollRequest = {
+      criminal: {
+        address: {
+          city: this.city(),
+          country: this.country(),
+          postCode: this.postCode(),
+          street: this.street(),
+          streetNumber: this.streetNumber()
+        },
+        email: this.email(),
+        firstName: this.firstName(),
+        lastName: this.lastName(),
+        phoneNumber: this.phoneNumber()
       },
-      email: this.email(),
-      firstName: this.firstName(),
-      lastName: this.lastName(),
-      phoneNumber: this.phoneNumber()
+      modalities: []
     };
-    this.criminalService.createCriminal(newCriminal).subscribe({
-      next: () => this.location.back(),
-      error: (err) => console.error(err)
+
+    this.criminalService.enroll(criminalEnrollRequest).subscribe({
+      next: (response) => {
+        const criminalResponse = response as CriminalResponseDto
+        this.notificationService.success("Enrolled Criminal", null, 3000);
+        this.location.back();
+      },
+      error: (response) => {
+        // todo: check return type
+        console.log(response);
+      }
     });
   }
 }

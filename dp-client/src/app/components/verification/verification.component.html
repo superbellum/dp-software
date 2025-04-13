@@ -20,12 +20,12 @@
       </div>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li>
-          <a class="dropdown-item" style="cursor: pointer" (click)="modalityType.set('FINGERPRINT')">
+          <a class="dropdown-item" style="cursor: pointer" (click)="modalityType.set(ModalityType.FINGERPRINT)">
             <i class="bi-fingerprint"></i> FINGERPRINT
           </a>
         </li>
         <li>
-          <a class="dropdown-item" style="cursor: pointer" (click)="modalityType.set('IRIS')">
+          <a class="dropdown-item" style="cursor: pointer" (click)="modalityType.set(ModalityType.IRIS)">
             <i class="bi-eye"></i> IRIS
           </a>
         </li>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="mb-3">
-      <input type="file" class="form-control" (change)="onFileSelected($event)">
+      <input type="file" class="form-control" (change)="onModalityFileSelected($event)">
     </div>
 
     <div class="mb-3">

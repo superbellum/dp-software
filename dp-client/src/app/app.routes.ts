@@ -12,7 +12,7 @@ export const routes: Routes = [
     component: CriminalsComponent
   },
   {
-    path: 'new-criminal',
+    path: 'create-criminal',
     component: CreateCriminalComponent
   },
   {
@@ -20,7 +20,7 @@ export const routes: Routes = [
     component: ModalitiesComponent
   },
   {
-    path: 'criminals/:id/modalities/new-modality',
+    path: 'criminals/:id/modalities/create-modality',
     component: CreateModalityComponent
   },
   {

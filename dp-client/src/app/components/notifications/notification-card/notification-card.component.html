@@ -1,0 +1,35 @@
+<div
+  id="{{notification().id}}"
+  class="toast show mb-2"
+  [ngClass]="notifClass"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  data-bs-autohide="false"
+>
+  @if (notification().header) {
+    <div class="toast-header">
+      @if (notification().header?.iconName) {
+        <i class="bi me-2" [ngClass]="notification().header?.iconName"></i>
+      }
+
+      @if (notification().header?.title) {
+        <strong class="me-auto">{{ notification().header?.title }}</strong>
+      }
+    </div>
+  }
+
+  <div class="d-flex">
+    <div class="toast-body">
+      {{ notification().text }}
+    </div>
+
+    @if (!notification().dismissTimeout) {
+      <button
+        type="button"
+        class="btn-close me-2 m-auto"
+        (click)="dismissNotification()"
+      ></button>
+    }
+  </div>
+</div>

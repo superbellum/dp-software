@@ -1,15 +1,15 @@
 import {Component, inject, signal} from '@angular/core';
 import {BiometricService} from '../../services/biometric.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {VerificationRequest} from '../../model/payload/verification-request.model';
-import {NgStyle} from '@angular/common';
+import {VerificationRequest} from '../../model/payload/request/verification-request';
+import {ModalityType} from '../../model/modality-type';
+import {onFileSelected} from '../../utils/onFileSelected';
 
 @Component({
   selector: 'app-verification',
   imports: [
     FormsModule,
-    ReactiveFormsModule,
-    NgStyle
+    ReactiveFormsModule
   ],
   templateUrl: './verification.component.html',
   styleUrl: './verification.component.css'
@@ -18,20 +18,20 @@ export class VerificationComponent {
   // form inputs
   matchScoreThreshold = signal<number>(80);
   criminalId = signal<string | null>(null);
-  modalityType = signal<string | null>(null);
-  modalityData = signal<string | null>(null);
+  modalityType = signal<ModalityType | null>(null);
+  modalityRawData = signal<string | null>(null);
   verified = signal<boolean | null>(null);
   matchScore = signal<number | null>(null);
 
   private biometricService = inject(BiometricService);
 
   onSubmit() {
-    if (this.criminalId() && this.modalityType() && this.modalityData()) {
+    if (this.criminalId() && this.modalityType() && this.modalityRawData()) {
       const verificationRequest: VerificationRequest = {
         criminalId: this.criminalId()!,
         modality: {
           type: this.modalityType()!,
-          data: this.modalityData()!
+          rawData: this.modalityRawData()!
         },
         verificationParameters: {
           matchScoreThreshold: this.matchScoreThreshold(),
@@ -48,20 +48,12 @@ export class VerificationComponent {
     }
   }
 
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (!input.files || input.files.length === 0) {
-      return;
+  onModalityFileSelected(event: Event) {
+    const onLoad = (result: string) => {
+      this.modalityRawData.set(result.split(',')[1]);
     }
-
-    const file = input.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.modalityData.set((reader.result as string).split(',')[1]);
-    };
-    reader.onerror = (error) => {
-      console.error('Error reading file:', error);
-    };
+    onFileSelected(event, onLoad, (err) => console.error('Error reading file:', err));
   }
+
+  protected readonly ModalityType = ModalityType;
 }

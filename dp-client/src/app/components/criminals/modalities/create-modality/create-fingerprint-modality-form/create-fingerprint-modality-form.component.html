@@ -1,0 +1,30 @@
+<form (ngSubmit)="onSubmit()" class="mt-4" novalidate>
+
+  <span class="me-2">Select Fingerprint Position:</span>
+  <div class="dropdown mb-3 d-inline-block">
+    <div class="btn btn-outline-dark dropdown-toggle" id="dropdownMenuModalityPosition" data-bs-toggle="dropdown"
+         aria-expanded="false">
+      {{ selectedFingerprintPosition() }}
+    </div>
+
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuModalityPosition">
+      @for (position of fingerPositions; track $index) {
+        <li>
+          <a class="dropdown-item" style="cursor: pointer" (click)="selectedFingerprintPosition.set(position)">
+            {{ position }}
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="mb-3">
+    <input type="file" class="form-control" (change)="onFingerprintFileSelected($event)">
+  </div>
+
+  <button type="submit" class="btn btn-primary">
+    Submit
+    <i class="bi bi-floppy-fill ms-1"></i>
+  </button>
+
+</form>

@@ -1,58 +1,39 @@
 <div class="p-3">
-  <button type="button" class="btn btn-secondary" (click)="goBack()">
-    Return
-    <i class="bi bi-arrow-return-left ms-1"></i>
+  <button type="button" class="btn btn-secondary me-3" (click)="goBack()" tooltip="Return">
+    <i class="bi bi-arrow-return-left"></i>
   </button>
 
-  <form (ngSubmit)="onSubmit()" class="container mt-5" novalidate>
+  <div class="container mt-5">
+    <span class="me-2">Select Modality Type:</span>
+    <div class="btn-group">
+      <button
+        type="button"
+        class="btn"
+        [ngClass]="modalityToCreate() === ModalityType.FINGERPRINT ? 'btn-dark' : 'btn-outline-dark'"
+        (click)="modalityToCreate.set(ModalityType.FINGERPRINT)"
+      >
+        Fingerprint
+        <i class="bi bi-fingerprint ms-1"></i>
+      </button>
 
-    <div class="dropdown mb-3 me-3 d-inline-block">
-      <div class="btn btn-outline-dark dropdown-toggle" id="dropdownMenuModalityType" data-bs-toggle="dropdown"
-           aria-expanded="false">
-        {{ modalityType() ?? "Select Modality Type" }}
-      </div>
-
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuModalityType">
-        <li>
-          <a class="dropdown-item" style="cursor: pointer" (click)="modalityType.set('FINGERPRINT')">
-            <i class="bi-fingerprint"></i> FINGERPRINT
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item" style="cursor: pointer" (click)="modalityType.set('IRIS')">
-            <i class="bi-eye"></i> IRIS
-          </a>
-        </li>
-      </ul>
+      <button
+        type="button"
+        class="btn"
+        [ngClass]="modalityToCreate() === ModalityType.IRIS ? 'btn-dark' : 'btn-outline-dark'"
+        (click)="modalityToCreate.set(ModalityType.IRIS)"
+      >
+        Iris
+        <i class="bi bi-eye ms-1"></i>
+      </button>
     </div>
 
-    @if (modalityType()) {
-      <div class="dropdown mb-3 d-inline-block">
-        <div class="btn btn-outline-dark dropdown-toggle" id="dropdownMenuModalityPosition" data-bs-toggle="dropdown"
-             aria-expanded="false">
-          {{ modalityPosition() ?? "Select Modality Position" }}
-        </div>
-
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuModalityPosition">
-          @for (position of modalityPositions(); track $index) {
-            <li>
-              <a class="dropdown-item" style="cursor: pointer" (click)="modalityPosition.set(position)">
-                {{ position }}
-              </a>
-            </li>
-          }
-        </ul>
-      </div>
+    @switch (modalityToCreate()) {
+      @case (ModalityType.FINGERPRINT) {
+        <app-create-fingerprint-modality-form [criminalId]="criminalId()"/>
+      }
+      @case (ModalityType.IRIS) {
+        <app-create-iris-modality-form [criminalId]="criminalId()"/>
+      }
     }
-
-    <div class="mb-3">
-      <input type="file" class="form-control" (change)="onFileSelected($event)">
-    </div>
-
-    <button type="submit" class="btn btn-primary">
-      Submit
-      <i class="bi bi-floppy-fill ms-1"></i>
-    </button>
-
-  </form>
+  </div>
 </div>

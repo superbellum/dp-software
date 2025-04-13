@@ -1,11 +1,12 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {GetAllCriminalsResponse} from '../model/payload/get-all-criminals-response.model';
 import {Observable} from 'rxjs';
-import {GetModalitiesForCriminalResponse} from '../model/payload/get-modalities-for-criminal-response.model';
-import {MessageResponse} from '../model/payload/message-response.model';
-import {NewCriminal} from '../model/new-criminal.model';
-import {AddModalityForCriminalRequest} from '../model/add-modality-for-criminal-request.model';
+import {MessageResponse} from '../model/payload/response/message-response';
+import {AddModalitiesRequest} from '../model/payload/request/add-modalities-request';
+import {GetCriminalModalitiesResponseType} from '../model/payload/response/get-criminal-modalities-response-type';
+import {GetAllCriminalsResponse} from '../model/payload/response/get-all-criminals-response';
+import {EnrollResponseType} from '../model/payload/response/enroll-response-type';
+import {CriminalEnrollRequest} from '../model/payload/request/criminal-enroll-request';
 
 const httpOptions = {
   headers: new HttpHeaders({'content-type': 'application/json'})
@@ -13,35 +14,35 @@ const httpOptions = {
 
 @Injectable({providedIn: 'root'})
 export class CriminalService {
-  private static readonly API_URL = 'http://localhost:8090/api/criminals';
+  private readonly API_URL = 'http://localhost:8090/api/criminals';
 
   private httpClient = inject(HttpClient);
 
-  createCriminal(newCriminal: NewCriminal) {
-    return this.httpClient.post(CriminalService.API_URL, {criminal: newCriminal, modalities: []}, httpOptions);
+  enroll(criminalEnrollRequest: CriminalEnrollRequest): Observable<EnrollResponseType> {
+    return this.httpClient.post<EnrollResponseType>(this.API_URL, criminalEnrollRequest, httpOptions);
   }
 
   getAllCriminals(): Observable<GetAllCriminalsResponse> {
-    return this.httpClient.get<GetAllCriminalsResponse>(CriminalService.API_URL, httpOptions);
+    return this.httpClient.get<GetAllCriminalsResponse>(this.API_URL, httpOptions);
   }
 
-  getModalitiesForCriminal(criminalId: string): Observable<GetModalitiesForCriminalResponse> {
-    return this.httpClient.get<GetModalitiesForCriminalResponse>(`${CriminalService.API_URL}/${criminalId}/modalities`, httpOptions);
+  getModalitiesForCriminal(criminalId: string): Observable<GetCriminalModalitiesResponseType> {
+    return this.httpClient.get<GetCriminalModalitiesResponseType>(`${this.API_URL}/${criminalId}/modalities`, httpOptions);
   }
 
-  addModalitiesToCriminal(criminalId: string, request: AddModalityForCriminalRequest): Observable<MessageResponse> {
-    return this.httpClient.post<MessageResponse>(`${CriminalService.API_URL}/${criminalId}/modalities`, request, httpOptions);
+  addModalitiesToCriminal(criminalId: string, request: AddModalitiesRequest): Observable<MessageResponse> {
+    return this.httpClient.post<MessageResponse>(`${this.API_URL}/${criminalId}/modalities`, request, httpOptions);
   }
 
-  deleteAllModalitiesForCriminal(criminalId: string): Observable<MessageResponse> {
-    return this.httpClient.delete<MessageResponse>(`${CriminalService.API_URL}/${criminalId}/modalities`);
+  removeModalitiesOfCriminal(criminalId: string): Observable<MessageResponse> {
+    return this.httpClient.delete<MessageResponse>(`${this.API_URL}/${criminalId}/modalities`);
   }
 
-  deleteModalityForCriminal(criminalId: string, modalityId: string): Observable<MessageResponse> {
-    return this.httpClient.delete<MessageResponse>(`${CriminalService.API_URL}/${criminalId}/modalities/${modalityId}`);
+  removeModalityOfCriminal(criminalId: string, modalityId: string): Observable<MessageResponse> {
+    return this.httpClient.delete<MessageResponse>(`${this.API_URL}/${criminalId}/modalities/${modalityId}`);
   }
 
   deleteCriminalById(criminalId: string): Observable<MessageResponse> {
-    return this.httpClient.delete<MessageResponse>(`${CriminalService.API_URL}/${criminalId}`);
+    return this.httpClient.delete<MessageResponse>(`${this.API_URL}/${criminalId}`);
   }
 }

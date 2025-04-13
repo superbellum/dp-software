@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {Candidate} from '../../../model/candidate.model';
+import {CriminalCandidate} from '../../../model/criminal-candidate';
 
 @Component({
   selector: 'app-candidate-card',
@@ -8,5 +8,5 @@ import {Candidate} from '../../../model/candidate.model';
   styleUrl: './candidate-card.component.css'
 })
 export class CandidateCardComponent {
-  candidate = input.required<Candidate>();
+  candidate = input.required<CriminalCandidate>();
 }
