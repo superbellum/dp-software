@@ -53,6 +53,16 @@ export class CriminalsComponent implements OnInit {
     this.router.navigateByUrl("create-criminal");
   }
 
+  deleteAllCriminals() {
+    this.criminalService.deleteAllCriminals().subscribe({
+      next: (res) => {
+        this.notificationService.success(res.message, null, 3000);
+        this.fetchCriminals();
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
   onDeletedCriminal(criminalId: string) {
     this.criminals.set(this.criminals()?.filter(c => c.id !== criminalId));
   }

@@ -13,15 +13,18 @@
       <i class="bi bi-person-fill-add"></i>
     </button>
 
-    @if (!criminals() || criminals()?.length === 0) {
+    @if (criminals() && criminals()?.length !== 0) {
+      <button type="button" class="btn btn-danger ms-2" (click)="deleteAllCriminals()">
+        <i class="bi bi-trash"></i>
+      </button>
+    }
 
+    @if (!criminals() || criminals()?.length === 0) {
       <div class="text-center mt-5">
         <p class="m-0">No criminals in the system</p>
         <i class="bi bi-person-slash" style="font-size: 100px;"></i>
       </div>
-
     } @else {
-
       <span class="ms-4 fs-5" tooltip="Number of Criminals">
         <i class="bi bi-people-fill me-1"></i>{{ criminals()?.length }}
       </span>

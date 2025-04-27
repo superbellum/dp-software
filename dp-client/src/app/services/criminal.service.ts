@@ -45,4 +45,8 @@ export class CriminalService {
   deleteCriminalById(criminalId: string): Observable<MessageResponse> {
     return this.httpClient.delete<MessageResponse>(`${this.API_URL}/${criminalId}`);
   }
+
+  deleteAllCriminals(): Observable<MessageResponse> {
+    return this.httpClient.delete<MessageResponse>(this.API_URL, httpOptions);
+  }
 }
