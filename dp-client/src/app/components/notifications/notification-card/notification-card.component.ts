@@ -26,14 +26,14 @@ export class NotificationCardComponent implements AfterViewInit {
   get notifClass() {
     switch (this.notification().type) {
       case NotificationType.ERROR:
-        return "text-bg-danger";
+        return "bg-danger-subtle";
       case NotificationType.SUCCESS:
-        return "text-bg-success";
+        return "bg-success-subtle";
       case NotificationType.WARNING:
-        return "text-bg-warning";
+        return "bg-warning-subtle";
       case NotificationType.INFO:
       default:
-        return "text-bg-light";
+        return "bg-light-subtle";
     }
   }
 

@@ -1,12 +1,11 @@
 import {Component, inject, signal} from '@angular/core';
 import {StorageService} from '../../services/storage.service';
 import {Router, RouterLink} from '@angular/router';
+import {ThemeSwitchComponent} from './theme-switch/theme-switch.component';
 
 @Component({
   selector: 'app-navbar',
-  imports: [
-    RouterLink
-  ],
+  imports: [RouterLink, ThemeSwitchComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
